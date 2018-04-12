@@ -9,3 +9,7 @@ A Project Base Constructor.
 5. scroll view 的下拉刷新封裝
 6. 小鍵盤彈出時, 若會遮擋到元間, 則整個向上位移
 7. qrcode 掃描
+
+使用方式:
+
+pod 'MGProjectConstructorSwift', '~> 0.0.1'
