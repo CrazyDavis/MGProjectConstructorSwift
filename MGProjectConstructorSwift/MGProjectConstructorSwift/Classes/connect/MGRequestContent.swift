@@ -70,6 +70,9 @@ public class MGRequestContent: CustomStringConvertible {
         }
     }
 
+    //資料帶入content, 有別於 param 跟 uploads 帶入的資料
+    public var contentData: Data?
+
     //參數是否為 Json 格式
     public var paramIsJson: Bool = false
 
@@ -96,6 +99,36 @@ public class MGRequestContent: CustomStringConvertible {
         self.path = path
         self.method = method
     }
+
+}
+
+
+//相關資料結構
+public extension MGRequestContent {
+
+    //本地的快取設定
+    public struct MGLocalCache {
+        var load: Bool = false
+        var save: Bool = false
+    }
+
+    //是 http 還是 https
+    public enum Scheme: String {
+        case http = "http"
+        case https = "https"
+    }
+
+    //Requst Method
+    public enum Method {
+        case get
+        case post
+    }
+
+
+}
+
+//設定資料
+public extension MGRequestContent {
 
     public func setDeserialize(_ c: MGJsonDeserializeDelegate.Type) -> MGRequestContent {
         deserialize = c
@@ -153,24 +186,6 @@ public class MGRequestContent: CustomStringConvertible {
             _ = addUpload(key, value: v, array: true)
         }
         return self
-    }
-
-    //本地的快取設定
-    public struct MGLocalCache {
-        var load: Bool = false
-        var save: Bool = false
-    }
-
-    //是 http 還是 https
-    public enum Scheme: String {
-        case http = "http"
-        case https = "https"
-    }
-
-    //Requst Method
-    public enum Method {
-        case get
-        case post
     }
 
 }

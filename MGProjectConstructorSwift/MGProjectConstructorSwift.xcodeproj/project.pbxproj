@@ -32,6 +32,8 @@
 		B8776E25207F349300CC8442 /* MGFgtDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E11207F349300CC8442 /* MGFgtDataHelper.swift */; };
 		B8776E26207F349300CC8442 /* MGFgtStatusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E12207F349300CC8442 /* MGFgtStatusHelper.swift */; };
 		B8776E27207F349300CC8442 /* MGVCBackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E13207F349300CC8442 /* MGVCBackHelper.swift */; };
+		B8D4ACD920A4345F000847F0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B8D4ACD820A4345F000847F0 /* README.md */; };
+		B8D4ACDB20A43465000847F0 /* MGProjectConstructorSwift.podspec in Resources */ = {isa = PBXBuildFile; fileRef = B8D4ACDA20A43465000847F0 /* MGProjectConstructorSwift.podspec */; };
 		C37FBEFB9479225D736B2655 /* Pods_MGProjectConstructorSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7585E13966D72A6A5103CCD /* Pods_MGProjectConstructorSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +68,8 @@
 		B8776E11207F349300CC8442 /* MGFgtDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGFgtDataHelper.swift; sourceTree = "<group>"; };
 		B8776E12207F349300CC8442 /* MGFgtStatusHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGFgtStatusHelper.swift; sourceTree = "<group>"; };
 		B8776E13207F349300CC8442 /* MGVCBackHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGVCBackHelper.swift; sourceTree = "<group>"; };
+		B8D4ACD820A4345F000847F0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		B8D4ACDA20A43465000847F0 /* MGProjectConstructorSwift.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MGProjectConstructorSwift.podspec; path = ../../MGProjectConstructorSwift.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,8 @@
 				B8776DEB207F346400CC8442 /* Assets.xcassets */,
 				B8776DED207F346400CC8442 /* LaunchScreen.storyboard */,
 				B8776DF0207F346400CC8442 /* Info.plist */,
+				B8D4ACDA20A43465000847F0 /* MGProjectConstructorSwift.podspec */,
+				B8D4ACD820A4345F000847F0 /* README.md */,
 				B8776DF6207F349300CC8442 /* Classes */,
 			);
 			path = MGProjectConstructorSwift;
@@ -240,7 +246,6 @@
 				B8776DDE207F346400CC8442 /* Frameworks */,
 				B8776DDF207F346400CC8442 /* Resources */,
 				EB59CAA94DA39E2B57B1050C /* [CP] Embed Pods Frameworks */,
-				60D33321413604B8ACE40E7A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -291,7 +296,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8776DEF207F346400CC8442 /* LaunchScreen.storyboard in Resources */,
+				B8D4ACDB20A43465000847F0 /* MGProjectConstructorSwift.podspec in Resources */,
 				B8776DEC207F346400CC8442 /* Assets.xcassets in Resources */,
+				B8D4ACD920A4345F000847F0 /* README.md in Resources */,
 				B8776DEA207F346400CC8442 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,21 +322,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		60D33321413604B8ACE40E7A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MGProjectConstructorSwift/Pods-MGProjectConstructorSwift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EB59CAA94DA39E2B57B1050C /* [CP] Embed Pods Frameworks */ = {

@@ -10,6 +10,9 @@ A Project Base Constructor.
 6. 小鍵盤彈出時, 若會遮擋到元間, 則整個向上位移
 7. qrcode 掃描
 
+版本歷史:
+0.1.0: 新增MGRequest可帶入contentData的資料
+
 使用方式:
 
-pod 'MGProjectConstructorSwift', '~> 0.0.1'
+pod 'MGProjectConstructorSwift', '~> 0.1.0'

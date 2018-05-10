@@ -137,20 +137,25 @@ public class MGRequestConnect {
     //確定要從網路撈取資料了
     private static func startConnect(_ request: MGUrlRequest, cbk: MGRequestCallback, urlIndex: Int) {
         print("開始連線: \(request.content[urlIndex])")
-        let contentData = request.content[urlIndex]
+        let requestContent = request.content[urlIndex]
 
-        let url = contentData.getURL()!
-        let params = contentData.params
-        let headers = contentData.headers
+        let url = requestContent.getURL()!
+        let params = requestContent.params
+        let headers = requestContent.headers
 
         let httpMethod: HTTPMethod
-        switch contentData.method {
+        switch requestContent.method {
         case .get: httpMethod = .get
         case .post: httpMethod = .post
         }
 
-        //判斷是否為上檔案資料
-        if let uploads = contentData.uploads {
+        /*
+         創建request分三種情形, 依照優先順序
+         1. uploads不為空: 需要上傳的檔案, params有效, contentData失效
+         2. contentData不為空: 需要帶入httpBody的資料, params失效, uploads失效
+         3. uploads, contentData皆空: 無需要上傳也無需要帶入httpBody的資料, params有效
+         */
+        if let uploads = requestContent.uploads {
             let result = Alamofire.SessionManager.default.uploadData(url, method: httpMethod,
                                                                      data: uploads, param: params,
                                                                      header: headers)
@@ -171,23 +176,46 @@ public class MGRequestConnect {
                 return
             }
 
+        } else if let contentData = requestContent.contentData {
+
+            if let data = getContentDataRequest(url, method: httpMethod, contentData: contentData,
+                                                              headers: requestContent.headers) {
+                let response = data.responseString(String.Encoding.utf8)
+                responseDataHandle(request, response: response, urlIndex: urlIndex)
+            }
+
+
         } else {
 
             let data: DataRequest = getDataRequest(url, method: httpMethod,
-                                                   param: params, isParamJson: contentData.paramIsJson,
-                                                   headers: contentData.headers,
-                                                   cacheEnable: contentData.network)
+                                                   param: params, isParamJson: requestContent.paramIsJson,
+                                                   headers: requestContent.headers,
+                                                   cacheEnable: requestContent.network)
             let response = data.responseString(String.Encoding.utf8)
             responseDataHandle(request, response: response, urlIndex: urlIndex)
         }
 
     }
 
+    //創建帶入contentData的request
+    private static func getContentDataRequest(_ url: URL,
+                                              method: HTTPMethod,
+                                              contentData: Data,
+                                              headers: HTTPHeaders) -> DataRequest? {
+        //這有可能拋出錯誤, 若是出現錯誤直接返回nil
+        var request = try? URLRequest(url: url, method: method, headers: headers)
+        request?.httpBody = contentData
+        if let request = request {
+            return Alamofire.request(request)
+        }
+        return nil
+    }
+
 
     //創建一般request
     private static func getDataRequest(_ url: URL, method: HTTPMethod,
                                        param: [String : Any]?, isParamJson: Bool,
-                                       headers: HTTPHeaders, cacheEnable: Bool) -> DataRequest{
+                                       headers: HTTPHeaders, cacheEnable: Bool) -> DataRequest {
         if cacheEnable {
             return Alamofire.request(url,
                                      method: method,
