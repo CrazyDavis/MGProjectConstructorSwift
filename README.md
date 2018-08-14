@@ -17,7 +17,7 @@
 版本更迭:  
 0.1.0 - 新增MGRequest可帶入contentData的資料
 
-## 使用
+## 添加依賴
 
 ### Cocoapods
 pod 'MGProjectConstructorSwift', '~> {version}'  
