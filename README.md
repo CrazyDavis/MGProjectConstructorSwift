@@ -17,5 +17,8 @@
 版本更迭:  
 0.1.0 - 新增MGRequest可帶入contentData的資料
 
-使用方式:  
-pod 'MGProjectConstructorSwift', '~> {version}'
+## 使用
+
+### 添加 Gradle 依赖
+pod 'MGProjectConstructorSwift', '~> {version}'  
+( 其中 {version} 請自行替入此版號 - ![](https://img.shields.io/cocoapods/v/MGProjectConstructorSwift.svg?style=flat) )
