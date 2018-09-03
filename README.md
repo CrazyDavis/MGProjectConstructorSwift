@@ -15,6 +15,7 @@
 7. qrcode 掃描
 
 ## 版本  
+0.1.1 - 將 MGFgtManager 再封裝一層進入 MGFgtHelper, MGBaseApiHelper 更名為 MGApiHelper  
 0.1.0 - 新增MGRequest可帶入contentData的資料
 
 ## 添加依賴

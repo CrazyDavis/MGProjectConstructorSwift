@@ -12,7 +12,7 @@ import MGUtilsSwift
 /*
  輔助 api 呼叫的 超類
  */
-public class MGBaseApiHelper : MGRequestSenderDelegate {
+public class MGApiHelper : MGRequestSenderDelegate {
 
     public weak var delegate: MGApiHelperDelegate?
 

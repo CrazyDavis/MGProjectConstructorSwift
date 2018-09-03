@@ -16,8 +16,8 @@ import UIKit
  */
 open class MGBaseAty: UIViewController, MGApiHelperDelegate, MGVCManagerDelegate {
 
-    private var apiHelper: MGBaseApiHelper? = nil
-    private var fgtManager: MGFgtManager? = nil
+    private var apiHelper: MGApiHelper = MGApiHelper()
+    private var fgtHelper: MGFgtHelper = MGFgtHelper()
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ open class MGBaseAty: UIViewController, MGApiHelperDelegate, MGVCManagerDelegate
         setupView()
         registerObserverAtyStatus()
     }
-
+    
     //監測頁面狀態(回到前台/進入後台)
     private func registerObserverAtyStatus() {
         //進入前台監聽
@@ -52,28 +52,16 @@ open class MGBaseAty: UIViewController, MGApiHelperDelegate, MGVCManagerDelegate
 
     //抓取是否啟用 api 輔助物件的工具
     private func settingApiHelper() {
-        apiHelper = enableApiHelper() ? MGBaseApiHelper() : nil
-        apiHelper?.delegate = self
+        apiHelper.delegate = self
     }
 
-    //抓取是否啟用 api 輔助物件的工具
+    //抓取是否啟用 fgt 輔助物件的工具
     private func settingFgtManager() {
-        fgtManager = enableFgtManager() ? MGFgtManager() : nil
-        fgtManager?.setBaseCotainer(vcContainer())
-        fgtManager?.delegate = self
-        if let rootPage = rootPage() {
-            fgtManager?.setRootPage(rootPage)
-        }
+        fgtHelper.settingFgtManager(self)
+        fgtHelper.fgtDelegate = self
     }
-
 
     open func setupView() {}
-
-    //是否啟用 api 輔助 class
-    open func enableApiHelper() -> Bool { return true}
-
-    //是否啟用 fgt管理 輔助 class
-    open func enableFgtManager() -> Bool { return true }
 
     //裝載所有vc的view
     open func vcContainer() -> UIViewController { return self }
@@ -83,66 +71,53 @@ open class MGBaseAty: UIViewController, MGApiHelperDelegate, MGVCManagerDelegate
 
 
     //子類別設定倒數計時狀態
-    public func timerAction(_ action: MGBaseApiHelper.TimerAction) {
-        apiHelper?.timerAction(action)
+    public func timerAction(_ action: MGApiHelper.TimerAction) {
+        apiHelper.timerAction(action)
     }
 
     //設定倒數計時預設時間
     public func setTimerTime(_ time: TimeInterval) {
-        apiHelper?.timerTime = time
+        apiHelper.timerTime = time
     }
 
     //設定 vc manager 的 root page
     public func setRootPage(_ page: MGPageData) {
-        fgtManager?.setRootPage(page)
+        fgtHelper.setRootPage(page)
     }
 
     //跳轉到某個 VC, 可供複寫, 為的在跳轉前的執行動作
     open func fgtShow(_ request: MGUrlRequest) {
-        fgtManager?.pageJump(request)
+        fgtHelper.fgtShow(request)
     }
 
     //顯示某個頁面, 不用經過網路
     public func fgtShow(_ pageInfo: MGPageInfo) {
-        fgtManager?.pageJump(pageInfo)
+        fgtHelper.fgtShow(pageInfo)
     }
 
     //隱藏某個頁面
     public func fgtHide(_ vcTag: String) {
-        fgtManager?.hideFgt(vcTag)
+        fgtHelper.fgtHide(vcTag)
     }
 
     //回到首頁
     public func toRootPage() {
-        fgtManager?.toRootPage()
+        fgtHelper.toRootPage()
     }
 
     //得到目前最頂端顯示的page
     public func getTopPage() -> MGPageData? {
-        if let page = fgtManager?.totalHistory.last {
-            return page
-        } else {
-            return nil
-        }
+        return fgtHelper.getTopPage()
     }
 
     //回退上一頁fragment, 回傳代表是否處理 back
     open func backPage(_ back: Int = 1) -> Bool {
-        //先檢查最上層的fgt是否處理back的動作, 當back數量等於1時
-        guard let fgtManager = fgtManager else {
-            return false
-        }
-        if back == 1 && fgtManager.backAction() {
-            return true
-        } else {
-            return fgtManager.backPage(back)
-        }
-
+        return fgtHelper.backPage()
     }
 
     //發送request
     public func sendRequest(_ rt: MGUrlRequest, code: Int = MGRequestSender.REQUEST_DEFAUT) {
-        apiHelper?.sendRequest(rt, requestCode: code)
+        apiHelper.sendRequest(rt, requestCode: code)
     }
 
     //******************** MGVCManagerDelegate - API 委託相關回傳 以下 **************************

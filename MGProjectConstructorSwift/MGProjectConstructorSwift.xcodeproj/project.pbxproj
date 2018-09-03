@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8160B70213D2BD4000EB4BD /* MGFgtHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8160B6F213D2BD4000EB4BD /* MGFgtHelper.swift */; };
 		B8776DE5207F346400CC8442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776DE4207F346400CC8442 /* AppDelegate.swift */; };
 		B8776DE7207F346400CC8442 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776DE6207F346400CC8442 /* ViewController.swift */; };
 		B8776DEA207F346400CC8442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8776DE8207F346400CC8442 /* Main.storyboard */; };
@@ -18,7 +19,7 @@
 		B8776E17207F349300CC8442 /* MGUrlRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776DFC207F349300CC8442 /* MGUrlRequest.swift */; };
 		B8776E18207F349300CC8442 /* AlamofireEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776DFF207F349300CC8442 /* AlamofireEx.swift */; };
 		B8776E19207F349300CC8442 /* RswiftEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E00207F349300CC8442 /* RswiftEx.swift */; };
-		B8776E1A207F349300CC8442 /* MGBaseApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E02207F349300CC8442 /* MGBaseApiHelper.swift */; };
+		B8776E1A207F349300CC8442 /* MGApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E02207F349300CC8442 /* MGApiHelper.swift */; };
 		B8776E1B207F349300CC8442 /* MGRefreshHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E03207F349300CC8442 /* MGRefreshHelper.swift */; };
 		B8776E1C207F349300CC8442 /* MGRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E04207F349300CC8442 /* MGRequestSender.swift */; };
 		B8776E1D207F349300CC8442 /* MGScrollHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E05207F349300CC8442 /* MGScrollHelper.swift */; };
@@ -41,6 +42,7 @@
 		087593284A2D9691A48B9BA3 /* Pods-MGProjectConstructorSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MGProjectConstructorSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-MGProjectConstructorSwift/Pods-MGProjectConstructorSwift.release.xcconfig"; sourceTree = "<group>"; };
 		9FDEE6532D71D80C81E727F7 /* Pods-MGProjectConstructorSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MGProjectConstructorSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MGProjectConstructorSwift/Pods-MGProjectConstructorSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		B7585E13966D72A6A5103CCD /* Pods_MGProjectConstructorSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MGProjectConstructorSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8160B6F213D2BD4000EB4BD /* MGFgtHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGFgtHelper.swift; sourceTree = "<group>"; };
 		B8776DE1207F346400CC8442 /* MGProjectConstructorSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGProjectConstructorSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8776DE4207F346400CC8442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8776DE6207F346400CC8442 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,7 +56,7 @@
 		B8776DFC207F349300CC8442 /* MGUrlRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGUrlRequest.swift; sourceTree = "<group>"; };
 		B8776DFF207F349300CC8442 /* AlamofireEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireEx.swift; sourceTree = "<group>"; };
 		B8776E00207F349300CC8442 /* RswiftEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RswiftEx.swift; sourceTree = "<group>"; };
-		B8776E02207F349300CC8442 /* MGBaseApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGBaseApiHelper.swift; sourceTree = "<group>"; };
+		B8776E02207F349300CC8442 /* MGApiHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGApiHelper.swift; sourceTree = "<group>"; };
 		B8776E03207F349300CC8442 /* MGRefreshHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGRefreshHelper.swift; sourceTree = "<group>"; };
 		B8776E04207F349300CC8442 /* MGRequestSender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGRequestSender.swift; sourceTree = "<group>"; };
 		B8776E05207F349300CC8442 /* MGScrollHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGScrollHelper.swift; sourceTree = "<group>"; };
@@ -138,7 +140,6 @@
 		B8776DF6207F349300CC8442 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B8776DF7207F349300CC8442 /* adapter */,
 				B8776DF8207F349300CC8442 /* connect */,
 				B8776DFD207F349300CC8442 /* extension */,
 				B8776E01207F349300CC8442 /* helper */,
@@ -147,13 +148,6 @@
 				B8776E10207F349300CC8442 /* vcHelper */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		B8776DF7207F349300CC8442 /* adapter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = adapter;
 			sourceTree = "<group>";
 		};
 		B8776DF8207F349300CC8442 /* connect */ = {
@@ -187,10 +181,11 @@
 		B8776E01207F349300CC8442 /* helper */ = {
 			isa = PBXGroup;
 			children = (
-				B8776E02207F349300CC8442 /* MGBaseApiHelper.swift */,
+				B8776E02207F349300CC8442 /* MGApiHelper.swift */,
 				B8776E03207F349300CC8442 /* MGRefreshHelper.swift */,
 				B8776E04207F349300CC8442 /* MGRequestSender.swift */,
 				B8776E05207F349300CC8442 /* MGScrollHelper.swift */,
+				B8160B6F213D2BD4000EB4BD /* MGFgtHelper.swift */,
 			);
 			path = helper;
 			sourceTree = "<group>";
@@ -369,9 +364,10 @@
 			files = (
 				B8776E20207F349300CC8442 /* MGLocaleManager.swift in Sources */,
 				B8776E15207F349300CC8442 /* MGRequestConnect.swift in Sources */,
-				B8776E1A207F349300CC8442 /* MGBaseApiHelper.swift in Sources */,
+				B8776E1A207F349300CC8442 /* MGApiHelper.swift in Sources */,
 				B8776E25207F349300CC8442 /* MGFgtDataHelper.swift in Sources */,
 				B8776E14207F349300CC8442 /* MGPageInfo.swift in Sources */,
+				B8160B70213D2BD4000EB4BD /* MGFgtHelper.swift in Sources */,
 				B8776E1B207F349300CC8442 /* MGRefreshHelper.swift in Sources */,
 				B8776E1E207F349300CC8442 /* MGFgtManager.swift in Sources */,
 				B8776E16207F349300CC8442 /* MGRequestContent.swift in Sources */,

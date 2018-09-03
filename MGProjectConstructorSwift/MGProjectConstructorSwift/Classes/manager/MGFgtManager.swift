@@ -34,7 +34,7 @@ class MGFgtManager {
     weak var delegate: MGVCManagerDelegate?
 
     //發送api相關回調
-    var requestHelper: MGBaseApiHelper = MGBaseApiHelper()
+    var requestHelper: MGApiHelper = MGApiHelper()
 
     /*
      儲存 某個 layout 裡面裝載的最上層 fgt
