@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    A Project Base Constructor.
                    DESC
 
-  s.homepage     = "https://github.com/CrazyDavis/MGProjectConstructorSwift"
+  s.homepage     = "https://github.com/MagicalWater/MGProjectConstructorSwift"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -80,7 +80,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/CrazyDavis/MGProjectConstructorSwift.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/MagicalWater/MGProjectConstructorSwift.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -136,8 +136,5 @@ Pod::Spec.new do |s|
   # s.dependency "JSONKit", "~> 1.4"
   s.dependency 'Alamofire', '~> 4.4'
   s.dependency 'AlamofireImage', '~> 3.3'
-  s.dependency 'MGUtilsSwift'
-  s.dependency 'MGExtensionSwift'
-  s.dependency 'MGBaseViewSwift'
 
 end
