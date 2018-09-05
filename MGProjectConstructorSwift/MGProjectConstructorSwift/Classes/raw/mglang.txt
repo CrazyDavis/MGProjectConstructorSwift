@@ -1,0 +1,15 @@
+{
+"version": 1,
+"language": [
+{
+"country": "TW",
+"lang": "zh",
+"name": "繁體中文"
+},
+{
+"country": "",
+"lang": "en",
+"name": "English"
+}
+]
+}

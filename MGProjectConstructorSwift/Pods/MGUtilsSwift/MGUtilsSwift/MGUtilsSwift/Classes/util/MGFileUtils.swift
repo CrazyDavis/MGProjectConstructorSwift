@@ -49,6 +49,32 @@ public class MGFileUtils {
         return t
     }
 
+    //刪除某個文件(夾), 帶入路徑跟檔名
+    public static func delete(_ name: String, path: URL = documentDir) -> Bool {
+        let p = path.appendingPathComponent(name)
+        if FileManager.default.isDeletableFile(atPath: p.absoluteString) {
+            do { try FileManager.default.removeItem(at: p) }
+            catch { return false }
+            return true
+        }
+        return false
+    }
+
+    //刪除某個文件夾裡的所有資料
+    public static func delete(_ dirURL: URL) -> Bool {
+        var fileList: [String] = []
+        do {
+            fileList = try FileManager.default.contentsOfDirectory(atPath: dirURL.absoluteString)
+        } catch {
+            return false
+        }
+
+        for fileName in fileList {
+            _ = delete(fileName, path: dirURL)
+        }
+        return true
+    }
+
     //得到在document底下某個資料夾的URL, 若底下沒有此資料夾, 則自動創建
     public static func getDirURL(_ dirName: String, path: URL = documentDir) -> URL {
         let p = path.appendingPathComponent(dirName)

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "489E45095F44577FEDA1F1CA891F910B"
+               BlueprintIdentifier = "D8ED543654D6EC67D9AFC581BA0594FB"
                BlueprintName = "MGExtensionSwift"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "MGExtensionSwift.framework">

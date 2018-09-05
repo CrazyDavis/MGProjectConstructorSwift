@@ -1,53 +1,57 @@
 PODS:
-  - Alamofire (4.7.2)
+  - Alamofire (4.7.3)
   - AlamofireImage (3.3.1):
     - Alamofire (~> 4.5)
-  - CLImagePickerTool (2.2.8)
-  - Kingfisher (4.7.0)
-  - MGBaseViewSwift (0.0.3)
+  - CLImagePickerTool (2.3.1)
+  - Kingfisher (4.9.0)
   - MGExtensionSwift (0.0.3)
-  - MGUtilsSwift (0.1.2):
-    - CLImagePickerTool
+  - MGUtilsSwift (0.1.7):
+    - CLImagePickerTool (~> 2.3.1)
     - Kingfisher (~> 4.0)
     - ReachabilitySwift
     - SwiftyJSON
     - Toast-Swift (~> 3.0.1)
-  - ReachabilitySwift (4.1.0)
+  - R.swift (4.0.0):
+    - R.swift.Library (~> 4.0.0)
+  - R.swift.Library (4.0.0)
+  - ReachabilitySwift (4.2.1)
   - SwiftyJSON (4.1.0)
   - Toast-Swift (3.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - AlamofireImage (~> 3.3)
-  - MGBaseViewSwift
   - MGExtensionSwift
   - MGUtilsSwift
+  - R.swift
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
     - CLImagePickerTool
     - Kingfisher
-    - MGBaseViewSwift
     - MGExtensionSwift
     - MGUtilsSwift
+    - R.swift
+    - R.swift.Library
     - ReachabilitySwift
     - SwiftyJSON
     - Toast-Swift
 
 SPEC CHECKSUMS:
-  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
-  CLImagePickerTool: 13a32459afbeec0da2efd32ab9b3f97003375fa7
-  Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
-  MGBaseViewSwift: 6cecc5944d10eb55a1332c7576eacd07132846ac
+  CLImagePickerTool: cb3bda742d5125943190523edeb3d4751e84cde3
+  Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
   MGExtensionSwift: 7c7240248cade5185c7ba9d62cbc8d7cc4a777cd
-  MGUtilsSwift: f62db9b0cb981a530932f277a18f2df2f848fe24
-  ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
+  MGUtilsSwift: ae38a117fb588bf349b55e8e6d6b577a6485c962
+  R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
+  R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
+  ReachabilitySwift: 35720ffea59c1c76d15f885be77fd33e33985427
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
 
-PODFILE CHECKSUM: 4c29a92f5b0ec3656e515d3eae4f09ecb0eaa1fd
+PODFILE CHECKSUM: d7e917ce15e70006f7406d409f09eefe0cfa3728
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

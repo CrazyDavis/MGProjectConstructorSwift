@@ -39,28 +39,28 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
-		<key>MGBaseViewSwift.xcscheme</key>
+		<key>MGExtensionSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>MGExtensionSwift.xcscheme</key>
+		<key>MGUtilsSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
-		<key>MGUtilsSwift.xcscheme</key>
+		<key>Pods-MGProjectConstructorSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>Pods-MGProjectConstructorSwift.xcscheme</key>
+		<key>R.swift.Library.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

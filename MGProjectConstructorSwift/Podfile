@@ -8,6 +8,8 @@ target 'MGProjectConstructorSwift' do
   # Pods for MGProjectConstructorSwift
   pod 'Alamofire', '~> 4.4'
   pod 'AlamofireImage', '~> 3.3'
+  pod 'R.swift'
   pod 'MGUtilsSwift'
+  pod 'MGExtensionSwift'
 
 end
