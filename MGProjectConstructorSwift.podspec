@@ -38,5 +38,8 @@ Pod::Spec.new do |s|
   # s.dependency "JSONKit", "~> 1.4"
   s.dependency 'Alamofire', '~> 4.4'
   s.dependency 'AlamofireImage', '~> 3.3'
+  s.dependency 'MGUtilsSwift'
+  s.dependency 'MGExtensionSwift'
+  s.dependency 'R.swift'
 
 end
