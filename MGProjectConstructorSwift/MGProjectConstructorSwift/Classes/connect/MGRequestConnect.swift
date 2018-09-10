@@ -38,7 +38,7 @@ public class MGRequestConnect {
                 let urlIndex = runSort[number]
                 print("執行ApiRequest: urlIndex = \(urlIndex)")
 
-                distributionConnect(request, cbk: cbk, urlIndex: urlIndex)
+                distributionConnect(request, urlIndex: urlIndex)
             }
 
 
@@ -106,15 +106,15 @@ public class MGRequestConnect {
 
         //當某階段全部成功後即返回
         case .successBack:
-            //只要有一個沒有成功(code不為0)就直接跳出並且返回true代表需要繼續往下執行
-            for run in executeIndex where request.response[run].code != "0" {
+            //只要有一個沒有成功, 就直接跳出並且返回true代表需要繼續往下執行
+            for run in executeIndex where !request.response[run].isSuccess {
                 return true
             }
             return false
 
         //當出現錯後即刻返回
         case .errorBack:
-            for run in executeIndex where request.response[run].code != "0" {
+            for run in executeIndex where !request.response[run].isSuccess {
                 return false
             }
             return true
@@ -123,7 +123,7 @@ public class MGRequestConnect {
 
 
     //開始處理request, 從本地快取撈資料, 或者使用 get, post取資料
-    private static func distributionConnect(_ request: MGUrlRequest, cbk: MGRequestCallback, urlIndex: Int) {
+    private static func distributionConnect(_ request: MGUrlRequest, urlIndex: Int) {
 
         //接著判斷是否需要從本地撈取資料, 以及本地有無資料存在
         //資料庫快取部分尚未完成, 因此這部分直接略過
@@ -131,112 +131,24 @@ public class MGRequestConnect {
             return
         }
 
-        startConnect(request, cbk: cbk, urlIndex: urlIndex)
+        startConnect(request, urlIndex: urlIndex)
     }
 
     //確定要從網路撈取資料了
-    private static func startConnect(_ request: MGUrlRequest, cbk: MGRequestCallback, urlIndex: Int) {
-        print("開始連線: \(request.content[urlIndex])")
+    private static func startConnect(_ request: MGUrlRequest, urlIndex: Int) {
+        print("連線開始: \(request.content[urlIndex])")
         let requestContent = request.content[urlIndex]
-
-        let url = requestContent.getURL()!
-        let params = requestContent.params
-        let headers = requestContent.headers
-
-        let httpMethod: HTTPMethod
-        switch requestContent.method {
-        case .get: httpMethod = .get
-        case .post: httpMethod = .post
-        }
-
-        /*
-         創建request分三種情形, 依照優先順序
-         1. uploads不為空: 需要上傳的檔案, params有效, contentData失效
-         2. contentData不為空: 需要帶入httpBody的資料, params失效, uploads失效
-         3. uploads, contentData皆空: 無需要上傳也無需要帶入httpBody的資料, params有效
-         */
-        if let uploads = requestContent.uploads {
-            let result = Alamofire.SessionManager.default.uploadData(url, method: httpMethod,
-                                                                     data: uploads, param: params,
-                                                                     header: headers)
-
-            //上傳檔案後的結果
-            switch result {
-            case .success(let upload, _, _):
-                /*
-                 upload 上傳的 UploadRequest
-                 fromDisk 是否從 dick 上傳
-                 streamFileURL 上傳檔案的url
-                 */
-                let response: DataResponse<String> = upload.responseString(String.Encoding.utf8)
-                responseDataHandle(request, response: response, urlIndex: urlIndex)
-                break
-            case .failure(_):
-//                case .failure(let encodingError):
-                return
-            }
-
-        } else if let contentData = requestContent.contentData {
-
-            if let data = getContentDataRequest(url, method: httpMethod, contentData: contentData,
-                                                              headers: requestContent.headers) {
-                let response = data.responseString(String.Encoding.utf8)
-                responseDataHandle(request, response: response, urlIndex: urlIndex)
-            }
-
-
-        } else {
-
-            let data: DataRequest = getDataRequest(url, method: httpMethod,
-                                                   param: params, isParamJson: requestContent.paramIsJson,
-                                                   headers: requestContent.headers,
-                                                   cacheEnable: requestContent.network)
-            let response = data.responseString(String.Encoding.utf8)
+        
+        if let response = MGAlamofireConnect.connect(with: requestContent) {
             responseDataHandle(request, response: response, urlIndex: urlIndex)
         }
-
+        
     }
-
-    //創建帶入contentData的request
-    private static func getContentDataRequest(_ url: URL,
-                                              method: HTTPMethod,
-                                              contentData: Data,
-                                              headers: HTTPHeaders) -> DataRequest? {
-        //這有可能拋出錯誤, 若是出現錯誤直接返回nil
-        var request = try? URLRequest(url: url, method: method, headers: headers)
-        request?.httpBody = contentData
-        if let request = request {
-            return Alamofire.request(request)
-        }
-        return nil
-    }
-
-
-    //創建一般request
-    private static func getDataRequest(_ url: URL, method: HTTPMethod,
-                                       param: [String : Any]?, isParamJson: Bool,
-                                       headers: HTTPHeaders, cacheEnable: Bool) -> DataRequest {
-        if cacheEnable {
-            return Alamofire.request(url,
-                                     method: method,
-                                     parameters: param,
-                                     encoding: isParamJson ? JSONEncoding.default : URLEncoding.default,
-                                     headers: headers)
-        } else {
-            return SessionManager.default.requestWithoutCache(url,
-                                                              method: method,
-                                                              parameters: param,
-                                                              encoding: isParamJson ? JSONEncoding.default : URLEncoding.default,
-                                                              headers: headers)
-        }
-    }
-
 
     //檔案處理回傳
-    private static func responseDataHandle(_ request: MGUrlRequest, response: DataResponse<String>, urlIndex: Int) {
+    private static func responseDataHandle(_ request: MGUrlRequest, response: MGConnectResponse, urlIndex: Int) {
 
         //如果 response 是 nil, 則不解析或者做任何處理
-        
         guard let handler = responseParserHandler else {
             return
         }
@@ -244,27 +156,17 @@ public class MGRequestConnect {
         //首先判斷 連線的狀態 code
         //判斷api是否成功 - 呼叫外部回調檢查是否成功
 //        let isRequestSuccess = handler.isResponseStatsSuccess(response)
-        let headerFields = response.response?.allHeaderFields ?? [:]
+//        let headerFields = response.response?.allHeaderFields ?? [:]
 
-        print("連線完畢: 狀態 - \(String(describing: response.response?.statusCode)), header - \(headerFields)")
+//        print("連線完畢: 狀態 - \(String(describing: response.response?.statusCode)), header - \(headerFields)")
 
-        //返回結果
-        let result: String? = response.result.value
-
-        //當狀態不對, 或者 result 是nil, 則不進行回傳資料解析的動作
-        if result == nil {
-            print("連線返回: 失敗 result 為空")
-        } else {
-            let response = handler.parser(response, result: result!, deserialize: request.content[urlIndex].deserialize)
-            request.response[urlIndex] = response
-            print("連線返回: 成功, 解析結果: \(response.isSuccess ? "成功" : "失敗")")
-        }
-
-
+        //這邊不對返回的結果做任何判斷, 交給外部做
+        let response = handler.parser(response, deserialize: request.content[urlIndex].deserialize)
+        request.response[urlIndex] = response
+        print("連線返回: 解析結果: (\(String(describing: response.httpStatus))) path = \(String(describing: request.content[urlIndex].getURL()?.path)) \(response.isSuccess ? "成功" : "失敗")")
     }
 
 }
-
 
 public protocol MGRequestCallback: class {
     func response(_ request: MGUrlRequest, requestCode: Int, success: Bool)
@@ -279,5 +181,5 @@ public protocol MGResponseParser: class {
     func multipleRequest(request: MGUrlRequest, tag: String, step: Int)
 
     //解析response的回傳
-    func parser(_ response: DataResponse<String>?, result: String, deserialize: MGJsonDeserializeDelegate.Type?) -> MGUrlRequest.MGResponse
+    func parser(_ response: MGConnectResponse?, deserialize: MGJsonDeserializeDelegate.Type?) -> MGUrlRequest.MGResponse
 }

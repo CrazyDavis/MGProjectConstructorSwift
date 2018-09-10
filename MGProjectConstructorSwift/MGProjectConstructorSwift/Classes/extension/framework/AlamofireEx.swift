@@ -11,9 +11,9 @@ import Alamofire
 import AlamofireImage
 
 //Alamofire 相關擴展
-//目的在於 網路 request 禁止快取
 extension Alamofire.SessionManager {
 
+    //網路 request 禁止快取
     func requestWithoutCache(
         _ url: URLConvertible, method: HTTPMethod = .get,
         parameters: Parameters? = nil, encoding: ParameterEncoding = URLEncoding.default,
@@ -41,8 +41,6 @@ extension Alamofire.SessionManager {
 
             //先上傳檔案
             for (k,v) in data {
-
-
                 if let data = v as? Data {
                     multipartFormData.append(data, withName: k,fileName: "file.jpg", mimeType: "image/jpg")
                 } else if let img = v as? UIImage {
@@ -81,7 +79,6 @@ extension Alamofire.SessionManager {
 //目的 - request 的同步需求
 extension DataRequest {
 
-
     //同步等待資料返回
     public func response<T: DataResponseSerializerProtocol>(responseSerializer: T) -> DataResponse<T.SerializedObject> {
         let semaphore = DispatchSemaphore(value: 0)
@@ -95,13 +92,10 @@ extension DataRequest {
         return result
     }
 
-
     //同步等待字串資料返回
     public func responseString(_ encoding: String.Encoding? = nil) -> DataResponse<String> {
         return response(responseSerializer: DataRequest.stringResponseSerializer(encoding: encoding))
     }
-
-
 
    //同步等待圖片返回
     public func responseImage(_ scale: CGFloat = 1) -> DataResponse<Image> {
@@ -116,7 +110,6 @@ extension DataRequest {
         return result
     }
 
-
     //同步等待資料返回
     public func responseData() -> DefaultDataResponse {
         let semaphore = DispatchSemaphore(value: 0)
@@ -129,8 +122,6 @@ extension DataRequest {
 
         return result
     }
-
-
 
 }
 

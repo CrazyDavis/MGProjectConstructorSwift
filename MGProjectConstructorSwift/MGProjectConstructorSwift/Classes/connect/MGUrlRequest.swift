@@ -65,22 +65,20 @@ public class MGUrlRequest {
 
     public class MGResponse {
 
-        open var instance: Any? = nil
-        open var code: String
-        open var message: String? = nil
+        open var deserializeModel: Any? = nil
         open var isSuccess: Bool = false
         open var httpStatus: Int? = nil
-
-        public convenience init() {
-            self.init("-1")
-        }
-
-        public init(_ responseCode: String) {
-            self.code = responseCode
+        
+        public init() {}
+        
+        public init(_ deserializeModel: Any?, success: Bool, status: Int) {
+            self.deserializeModel = deserializeModel
+            self.isSuccess = success
+            self.httpStatus = status
         }
 
         public func getIns<T>() -> T? {
-            return instance as? T
+            return deserializeModel as? T
         }
     }
 
