@@ -15,8 +15,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let url = URL.init(string: "https://api.ipify.org/?format=json")
-        print("scheme = \(url?.scheme), host = \(url?.host), path = \(url?.path), comp = \(url?.query), extension = \(url?.pathExtension)")
+//        let url = URL.init(string: "https://api.ipify.org/?format=json")
+//        print("scheme = \(url?.scheme), host = \(url?.host), path = \(url?.path), comp = \(url?.query), extension = \(url?.pathExtension)")
     }
 
     override func didReceiveMemoryWarning() {
