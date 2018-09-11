@@ -39,6 +39,8 @@
 		B88175FE213FACAA004C508F /* MGSettingTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88175FD213FACAA004C508F /* MGSettingTag.swift */; };
 		B881763E21427183004C508F /* MGAlamofireConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B881763D21427183004C508F /* MGAlamofireConnect.swift */; };
 		B881764021427831004C508F /* MGConnectResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B881763F21427831004C508F /* MGConnectResponse.swift */; };
+		B881771521467324004C508F /* MGNetworkDetectUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B881771421467324004C508F /* MGNetworkDetectUtils.swift */; };
+		B881771821467445004C508F /* ApiPublicIpAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = B881771721467445004C508F /* ApiPublicIpAddress.swift */; };
 		B8D4ACD920A4345F000847F0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B8D4ACD820A4345F000847F0 /* README.md */; };
 		B8D4ACDB20A43465000847F0 /* MGProjectConstructorSwift.podspec in Resources */ = {isa = PBXBuildFile; fileRef = B8D4ACDA20A43465000847F0 /* MGProjectConstructorSwift.podspec */; };
 		C37FBEFB9479225D736B2655 /* Pods_MGProjectConstructorSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7585E13966D72A6A5103CCD /* Pods_MGProjectConstructorSwift.framework */; };
@@ -82,6 +84,8 @@
 		B88175FD213FACAA004C508F /* MGSettingTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGSettingTag.swift; sourceTree = "<group>"; };
 		B881763D21427183004C508F /* MGAlamofireConnect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGAlamofireConnect.swift; sourceTree = "<group>"; };
 		B881763F21427831004C508F /* MGConnectResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGConnectResponse.swift; sourceTree = "<group>"; };
+		B881771421467324004C508F /* MGNetworkDetectUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGNetworkDetectUtils.swift; sourceTree = "<group>"; };
+		B881771721467445004C508F /* ApiPublicIpAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiPublicIpAddress.swift; sourceTree = "<group>"; };
 		B8D4ACD820A4345F000847F0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		B8D4ACDA20A43465000847F0 /* MGProjectConstructorSwift.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MGProjectConstructorSwift.podspec; path = ../../MGProjectConstructorSwift.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +130,7 @@
 		B840038A213F982A00282E11 /* deserializeModel */ = {
 			isa = PBXGroup;
 			children = (
+				B88177162146741F004C508F /* api */,
 				B840038B213F983D00282E11 /* raw */,
 			);
 			path = deserializeModel;
@@ -223,6 +228,7 @@
 			children = (
 				B8776DFF207F349300CC8442 /* AlamofireEx.swift */,
 				B8776E00207F349300CC8442 /* RswiftEx.swift */,
+				B881771421467324004C508F /* MGNetworkDetectUtils.swift */,
 			);
 			path = framework;
 			sourceTree = "<group>";
@@ -277,6 +283,14 @@
 				B8776E13207F349300CC8442 /* MGVCBackHelper.swift */,
 			);
 			path = vcHelper;
+			sourceTree = "<group>";
+		};
+		B88177162146741F004C508F /* api */ = {
+			isa = PBXGroup;
+			children = (
+				B881771721467445004C508F /* ApiPublicIpAddress.swift */,
+			);
+			path = api;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -438,9 +452,11 @@
 				B8776E22207F349300CC8442 /* MGUIMover.swift in Sources */,
 				B8776E21207F349300CC8442 /* MGQRCodeScaner.swift in Sources */,
 				B8776E23207F349300CC8442 /* MGBaseAty.swift in Sources */,
+				B881771821467445004C508F /* ApiPublicIpAddress.swift in Sources */,
 				B8776E1D207F349300CC8442 /* MGScrollHelper.swift in Sources */,
 				B8776E17207F349300CC8442 /* MGUrlRequest.swift in Sources */,
 				B8776E27207F349300CC8442 /* MGVCBackHelper.swift in Sources */,
+				B881771521467324004C508F /* MGNetworkDetectUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

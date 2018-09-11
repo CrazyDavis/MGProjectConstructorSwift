@@ -80,7 +80,7 @@ extension Alamofire.SessionManager {
 extension DataRequest {
 
     //同步等待資料返回
-    public func response<T: DataResponseSerializerProtocol>(responseSerializer: T) -> DataResponse<T.SerializedObject> {
+    public func responseSync<T: DataResponseSerializerProtocol>(responseSerializer: T) -> DataResponse<T.SerializedObject> {
         let semaphore = DispatchSemaphore(value: 0)
         var result: DataResponse<T.SerializedObject>!
         self.response(queue: DispatchQueue.global(qos: .default), responseSerializer: responseSerializer) { response in
@@ -93,12 +93,12 @@ extension DataRequest {
     }
 
     //同步等待字串資料返回
-    public func responseString(_ encoding: String.Encoding? = nil) -> DataResponse<String> {
-        return response(responseSerializer: DataRequest.stringResponseSerializer(encoding: encoding))
+    public func responseStringSync(_ encoding: String.Encoding? = nil) -> DataResponse<String> {
+        return responseSync(responseSerializer: DataRequest.stringResponseSerializer(encoding: encoding))
     }
 
    //同步等待圖片返回
-    public func responseImage(_ scale: CGFloat = 1) -> DataResponse<Image> {
+    public func responseImageSync(_ scale: CGFloat = 1) -> DataResponse<Image> {
         let semaphore = DispatchSemaphore(value: 0)
         var result: DataResponse<Image>!
         self.responseImage(imageScale: scale, inflateResponseImage: true, queue: DispatchQueue.global(qos: .default)) { responseImage in
@@ -111,7 +111,7 @@ extension DataRequest {
     }
 
     //同步等待資料返回
-    public func responseData() -> DefaultDataResponse {
+    public func responseDataSync() -> DefaultDataResponse {
         let semaphore = DispatchSemaphore(value: 0)
         var result: DefaultDataResponse!
         self.response { responseData in
@@ -125,10 +125,33 @@ extension DataRequest {
 
 }
 
-
-
-
-
+//目的 - 下載同步需求
+extension DownloadRequest {
+    //同步等待資料返回
+    public func responseSync() -> DefaultDownloadResponse {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: DefaultDownloadResponse!
+        self.response(queue: DispatchQueue.global(qos: .default)) { response in
+            result = response
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
+        return result
+    }
+    
+    public func responseStringSync() -> DownloadResponse<String> {
+        let semaphore = DispatchSemaphore(value: 0)
+        var result: DownloadResponse<String>!
+        self.responseString(queue: DispatchQueue.global(qos: .default), encoding: String.Encoding.utf8) { response in
+            result = response
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        
+        return result
+    }
+}
 
 
 

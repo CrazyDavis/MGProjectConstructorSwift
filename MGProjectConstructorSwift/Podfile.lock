@@ -4,7 +4,7 @@ PODS:
     - Alamofire (~> 4.5)
   - CLImagePickerTool (2.3.1)
   - Kingfisher (4.9.0)
-  - MGExtensionSwift (0.0.3)
+  - MGExtensionSwift (0.0.6)
   - MGUtilsSwift (0.1.7):
     - CLImagePickerTool (~> 2.3.1)
     - Kingfisher (~> 4.0)
@@ -44,7 +44,7 @@ SPEC CHECKSUMS:
   AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
   CLImagePickerTool: cb3bda742d5125943190523edeb3d4751e84cde3
   Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
-  MGExtensionSwift: 7c7240248cade5185c7ba9d62cbc8d7cc4a777cd
+  MGExtensionSwift: 4a2b77d05982a15b4c0b976d2cf9df3bdaf9e642
   MGUtilsSwift: ae38a117fb588bf349b55e8e6d6b577a6485c962
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75

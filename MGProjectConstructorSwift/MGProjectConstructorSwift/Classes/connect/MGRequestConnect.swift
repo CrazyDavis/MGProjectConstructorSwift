@@ -21,6 +21,7 @@ public class MGRequestConnect {
     //設置此參數以方便自訂反序列化的處理
     open weak static var responseParserHandler: MGResponseParser?
     
+    //可帶入是否自訂處理response
     static func getData(_ request: MGUrlRequest, requestCode: Int, callback: MGRequestCallback) {
         MGThreadUtils.inSubAsync {
             loopRequestStep(request, requestCode: requestCode, callback: callback)
@@ -165,7 +166,7 @@ public class MGRequestConnect {
     //檔案處理回傳
     private static func responseDataHandle(_ request: MGUrlRequest, response: MGConnectResponse, urlIndex: Int) {
         
-        //如果 response 是 nil, 則不解析或者做任何處理
+        //如果 response 是 nil, 則不解析, 也不反序列化, 直接將結果加入response
         guard let handler = responseParserHandler else {
             return
         }
@@ -177,26 +178,36 @@ public class MGRequestConnect {
         
         //        print("連線完畢: 狀態 - \(String(describing: response.response?.statusCode)), header - \(headerFields)")
         
-        //這邊不對返回的結果做任何判斷, 交給外部做
-        let response = handler.parser(response, deserialize: request.content[urlIndex].deserialize)
-        request.response[urlIndex] = response
-        print("連線返回: 解析結果: (\(String(describing: response.httpStatus))) path = \(String(describing: request.content[urlIndex].getURL()?.path)) \(response.isSuccess ? "成功" : "失敗")")
+        //判斷下載檔案還是反序列化
+        //若兩個同時設置, 則反序列化失效
+        let contentHandler = request.content[urlIndex].contentHandler
+        if let path = contentHandler.saveInPath {
+            let response = handler.download(response)
+            request.response[urlIndex] = response
+            print("連線返回: 下載檔案: (\(String(describing: response.httpStatus))) 下載到 = \(path) path = \(String(describing: request.content[urlIndex].getURL()?.path)) \(response.isSuccess ? "成功" : "失敗")")
+        } else if let deserizalize = contentHandler.deserialize {
+            let response = handler.parser(response, deserialize: deserizalize)
+            request.response[urlIndex] = response
+            print("連線返回: 反序列化: (\(String(describing: response.httpStatus))) path = \(String(describing: request.content[urlIndex].getURL()?.path)) \(response.isSuccess ? "成功" : "失敗")")
+        }
     }
     
 }
 
+//整個requst結束後回調
 public protocol MGRequestCallback: class {
     func response(_ request: MGUrlRequest, requestCode: Int, success: Bool)
 }
 
+//所有response的解析
 public protocol MGResponseParser: class {
-    //傳回的資料狀態是否為成功, 若是不成功則不往下繼續解析
-    //    func isResponseStatsSuccess(_ response: DataResponse<String>) -> Bool
-    
     //如果有多筆request sort, 則每個step結束後都會呼叫此方法
     //前提是request帶有tag, step為當前執行到第幾個step結束
     func multipleRequest(request: MGUrlRequest, tag: String, step: Int)
     
     //解析response的回傳
     func parser(_ response: MGConnectResponse?, deserialize: MGJsonDeserializeDelegate.Type?) -> MGUrlRequest.MGResponse
+    
+    //下載檔案
+    func download(_ response: MGConnectResponse?) -> MGUrlRequest.MGResponse
 }

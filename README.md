@@ -15,7 +15,8 @@
 7. qrcode 掃描
 
 ## 版本
-0.1.4 - MGRequestConnect增加異步handler回調方法
+0.1.5 - MGRequestContent 將動作更改為 contentHandler 封裝, 可選擇反序列化/下載檔案, 下載可監測進度
+0.1.4 - MGRequestConnect 增加異步handler回調方法  
 0.1.3 - 更改 網路連接相關類別的資料結構
 0.1.2 - 開放多國語系設置, 相關類別 MGLocaleManager, RswiftEx(RSwift擴展)  
 0.1.1 - 將 MGFgtManager 再封裝一層進入 MGFgtHelper, MGBaseApiHelper 更名為 MGApiHelper  
