@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "MGProjectConstructorSwift"
-  s.version      = "0.1.6"
+  s.version      = "0.1.7"
   s.summary      = "A Project Base Constructor."
 
   s.description  = <<-DESC
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   # s.resource  = "icon.png"
-  # s.resources = "Resources/*.png"
+  s.resources = "MGProjectConstructorSwift/MGProjectConstructorSwift/Classes/raw/*.*"
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.framework  = "UIKit"
