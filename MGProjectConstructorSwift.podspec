@@ -35,6 +35,6 @@ Pod::Spec.new do |s|
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.dependency 'MGUtilsSwift'
   s.dependency 'MGExtensionSwift'
-  s.dependency 'R.swift'
+  s.dependency 'R.swift', '~> 5.0.0.alpha.2'
 
 end
