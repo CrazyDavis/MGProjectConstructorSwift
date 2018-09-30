@@ -6,9 +6,7 @@ target 'MGProjectConstructorSwift' do
   use_frameworks!
 
   # Pods for MGProjectConstructorSwift
-  pod 'Alamofire', '~> 4.4'
-  pod 'AlamofireImage', '~> 3.3'
-  pod 'R.swift'
+  pod 'R.swift', '~> 5.0.0.alpha.2'
   pod 'MGUtilsSwift'
   pod 'MGExtensionSwift'
 

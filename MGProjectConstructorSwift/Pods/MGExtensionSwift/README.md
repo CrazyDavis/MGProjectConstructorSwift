@@ -6,6 +6,7 @@
 所有蒐集/封裝好的 Extension  
 
 ## 版本
+1.0.0 - 更新 swift 版本至 4.2
 0.0.6 - URL 擴展 addQuerys, 刪除參數字串  
 0.0.5 - 新增 URL 擴展 addQuerys, 在原有的 url 基礎上加入 query  
 0.0.4 - 新增 URL 擴展 queryDictionary, 取得 query 的 Dictionary

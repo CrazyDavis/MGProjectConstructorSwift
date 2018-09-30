@@ -79,7 +79,8 @@ public class MGLocaleManager {
     
     //將語系設定反序列化為model
     private func loadLang(_ langText: String) {
-        mLangObject = MGJsonUtils.deserialize(langText, deserialize: RawLocaleSetting.self)
+        mLangObject = MGJsonUtils.deserialize(from: langText)
+        
     }
     
     private func getSelectedLanguage() {

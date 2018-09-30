@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 import MGUtilsSwift
 
 //以block closure 回調
@@ -17,10 +16,10 @@ typealias MGRequestConnectHandler = (_ request: MGUrlRequest, _ success: Bool) -
 typealias MGResponseParserForMutliRequest = (_ request: MGUrlRequest, _ tag: String, _ tep: Int) -> Void
 
 //以block closure 處理 MGResponseParser的parser
-typealias MGResponseParserForParser = (_ response: MGConnectResponse?, _ deserialize: MGJsonDeserializeDelegate.Type?) -> MGUrlRequest.MGResponse
+typealias MGResponseParserForParser = (_ response: MGNetworkResponse?, _ deserialize: Codable.Type?) -> MGUrlRequest.MGResponse
 
 //以block closure 處理 MGResponseParser的download
-typealias MGResponseParserForDownload = (_ response: MGConnectResponse?) -> MGUrlRequest.MGResponse
+typealias MGResponseParserForDownload = (_ response: MGNetworkResponse?) -> MGUrlRequest.MGResponse
 
 /*
  此類針對 Request Builder 進行封裝
@@ -29,13 +28,14 @@ typealias MGResponseParserForDownload = (_ response: MGConnectResponse?) -> MGUr
 public class MGRequestConnect {
     
     //設置此參數預設反序列化/下載檔案/多request的處理
-    open weak static var defaultResponseParserHandler: MGResponseParser?
+    public weak static var defaultResponseParserHandler: MGResponseParser?
     
     //可帶入是否自訂處理response
     static func getData(_ request: MGUrlRequest, requestCode: Int, callback: MGRequestCallback) {
         MGThreadUtils.inSubAsync {
             loopRequestStep(request, requestCode: requestCode, mutliRequest: nil, parser: nil, download: nil, callback: callback)
         }
+        
     }
     
     //以 block 的方式處理回傳資料
@@ -198,14 +198,14 @@ public class MGRequestConnect {
         print("連線開始: \(request.content[urlIndex])")
         let requestContent = request.content[urlIndex]
         
-        if let response = MGAlamofireConnect.connect(with: requestContent) {
-            responseDataHandle(request, response: response, parser: parser, download: download, urlIndex: urlIndex)
-        }
+        let response = MGNetworkUtils.share.connect(with: requestContent)
+        responseDataHandle(request, response: response, parser: parser, download: download, urlIndex: urlIndex)
         
     }
     
     //檔案處理回傳
-    private static func responseDataHandle(_ request: MGUrlRequest, response: MGConnectResponse,
+    private static func responseDataHandle(_ request: MGUrlRequest,
+                                           response: MGNetworkResponse,
                                            parser: MGResponseParserForParser?,
                                            download: MGResponseParserForDownload?,
                                            urlIndex: Int) {
@@ -220,7 +220,7 @@ public class MGRequestConnect {
         //判斷下載檔案還是反序列化
         //若兩個同時設置, 則反序列化失效
         let contentHandler = request.content[urlIndex].contentHandler
-        if let path = contentHandler.saveInPath {
+        if let path = contentHandler.downloadInPath {
             let response = sendDownloadBack(response, customDownload: download)
             request.response[urlIndex] = response
             print("連線返回: 下載檔案: (\(String(describing: response.httpStatus))) 下載到 = \(path) path = \(String(describing: request.content[urlIndex].getURL()?.path)) \(response.isSuccess ? "成功" : "失敗")")
@@ -242,7 +242,7 @@ public class MGRequestConnect {
     }
     
     //發送解析回調
-    private static func sendParserBack(_ response: MGConnectResponse?, deserialize: MGJsonDeserializeDelegate.Type?,
+    private static func sendParserBack(_ response: MGNetworkResponse?, deserialize: Codable.Type?,
                                        customParser: MGResponseParserForParser?) -> MGUrlRequest.MGResponse {
         if let customParser = customParser {
             return customParser(response, deserialize)
@@ -252,7 +252,7 @@ public class MGRequestConnect {
     }
     
     //發送下載回調
-    private static func sendDownloadBack(_ response: MGConnectResponse?, customDownload: MGResponseParserForDownload?) -> MGUrlRequest.MGResponse {
+    private static func sendDownloadBack(_ response: MGNetworkResponse?, customDownload: MGResponseParserForDownload?) -> MGUrlRequest.MGResponse {
         if let customDownload = customDownload {
             return customDownload(response)
         } else {
@@ -274,15 +274,15 @@ public protocol MGResponseParser: class {
     func multipleRequest(request: MGUrlRequest, tag: String, step: Int)
     
     //解析response的回傳
-    func parser(_ response: MGConnectResponse?, deserialize: MGJsonDeserializeDelegate.Type?) -> MGUrlRequest.MGResponse
+    func parser(_ response: MGNetworkResponse?, deserialize: Codable.Type?) -> MGUrlRequest.MGResponse
     
     //下載檔案
-    func download(_ response: MGConnectResponse?) -> MGUrlRequest.MGResponse
+    func download(_ response: MGNetworkResponse?) -> MGUrlRequest.MGResponse
 }
 
 //以下三個方法都不一定會用到, 為了方便給自訂parser使用, 因此這邊直接繼承變可選
 public extension MGResponseParser {
     func multipleRequest(request: MGUrlRequest, tag: String, step: Int) {}
-    func parser(_ response: MGConnectResponse?, deserialize: MGJsonDeserializeDelegate.Type?) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
-    func download(_ response: MGConnectResponse?) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
+    func parser(_ response: MGNetworkResponse?, deserialize: Codable.Type?) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
+    func download(_ response: MGNetworkResponse?) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
 }

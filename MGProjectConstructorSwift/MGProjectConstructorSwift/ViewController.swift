@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CLImagePickerTool
 
 class ViewController: UIViewController {
 

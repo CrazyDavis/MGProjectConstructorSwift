@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "MGProjectConstructorSwift"
-  s.version      = "0.1.7"
+  s.version      = "1.0.0"
   s.summary      = "A Project Base Constructor."
 
   s.description  = <<-DESC
@@ -23,21 +23,16 @@ Pod::Spec.new do |s|
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.source       = { :git => "https://github.com/MagicalWater/MGProjectConstructorSwift.git", :tag => "#{s.version}" }
 
-
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.source_files  = "MGProjectConstructorSwift/MGProjectConstructorSwift/Classes/**/*"
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  # s.resource  = "icon.png"
   s.resources = "MGProjectConstructorSwift/MGProjectConstructorSwift/Classes/raw/*.*"
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.framework  = "UIKit"
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  # s.dependency "JSONKit", "~> 1.4"
-  s.dependency 'Alamofire', '~> 4.4'
-  s.dependency 'AlamofireImage', '~> 3.3'
   s.dependency 'MGUtilsSwift'
   s.dependency 'MGExtensionSwift'
   s.dependency 'R.swift'

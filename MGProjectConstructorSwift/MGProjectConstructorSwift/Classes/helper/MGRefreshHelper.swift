@@ -28,7 +28,7 @@ public class MGRefreshHelper: NSObject {
     public func setRefresh(view: UIScrollView) {
         //代表註冊了下拉刷新
         refreshControl = UIRefreshControl.init()
-        refreshControl?.addTarget(self, action: #selector(refreshStart), for: UIControlEvents.valueChanged)
+        refreshControl?.addTarget(self, action: #selector(refreshStart), for: UIControl.Event.valueChanged)
 
         syncThemeAttr()
 
@@ -45,9 +45,9 @@ public class MGRefreshHelper: NSObject {
         style.alignment = .center
         style.lineBreakMode = .byTruncatingTail
 
-        let stringAttrs: [NSAttributedStringKey : Any] = [
-            NSAttributedStringKey.foregroundColor: themeColor,
-            NSAttributedStringKey.paragraphStyle: style
+        let stringAttrs: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.foregroundColor: themeColor,
+            NSAttributedString.Key.paragraphStyle: style
         ]
 
         control.attributedTitle = NSAttributedString.init(string: refreshText, attributes: stringAttrs)

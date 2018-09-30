@@ -132,8 +132,6 @@ public class MGPageInfo {
             return self
         }
 
-
-
         public func build() -> MGPageInfo {
             return MGPageInfo.init(page, idientifier: pageIdientfier, containerId: containerId,
                                    pageTag: pageTag, pageTitle: pageTitle, inHistory: inHistory,

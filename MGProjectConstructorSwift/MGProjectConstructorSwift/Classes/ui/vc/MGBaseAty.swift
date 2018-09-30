@@ -32,10 +32,12 @@ open class MGBaseAty: UIViewController, MGApiHelperDelegate, MGVCManagerDelegate
     //監測頁面狀態(回到前台/進入後台)
     private func registerObserverAtyStatus() {
         //進入前台監聽
-        NotificationCenter.default.addObserver(self, selector: #selector(activityToForeground), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(activityToForeground),
+                                               name: UIApplication.didBecomeActiveNotification, object: nil)
 
         //進入後台監聽
-        NotificationCenter.default.addObserver(self, selector: #selector(activityTobackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(activityTobackground),
+                                               name: UIApplication.willResignActiveNotification, object: nil)
     }
 
 

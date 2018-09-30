@@ -25,6 +25,7 @@ open class MGBaseFgt: UIViewController, MGApiHelperDelegate, MGVCManagerDelegate
 
         // Do any additional setup after loading the view.
         settingApiHelper()
+        settingFgtManager()
         setupView()
     }
 

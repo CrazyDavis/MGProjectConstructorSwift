@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B8160B70213D2BD4000EB4BD /* MGFgtHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8160B6F213D2BD4000EB4BD /* MGFgtHelper.swift */; };
+		B823927321611DF600B5F753 /* MGNetworkUtilsEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B823927221611DF600B5F753 /* MGNetworkUtilsEx.swift */; };
 		B8400389213F82D400282E11 /* mglang.txt in Resources */ = {isa = PBXBuildFile; fileRef = B8400388213F82D400282E11 /* mglang.txt */; };
 		B840038F213F98A200282E11 /* RawLocaleSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840038D213F98A200282E11 /* RawLocaleSetting.swift */; };
-		B8400390213F98A200282E11 /* RawLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840038E213F98A200282E11 /* RawLanguage.swift */; };
 		B8776DE5207F346400CC8442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776DE4207F346400CC8442 /* AppDelegate.swift */; };
 		B8776DE7207F346400CC8442 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776DE6207F346400CC8442 /* ViewController.swift */; };
 		B8776DEA207F346400CC8442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8776DE8207F346400CC8442 /* Main.storyboard */; };
@@ -49,9 +49,9 @@
 		9FDEE6532D71D80C81E727F7 /* Pods-MGProjectConstructorSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MGProjectConstructorSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MGProjectConstructorSwift/Pods-MGProjectConstructorSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		B7585E13966D72A6A5103CCD /* Pods_MGProjectConstructorSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MGProjectConstructorSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8160B6F213D2BD4000EB4BD /* MGFgtHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGFgtHelper.swift; sourceTree = "<group>"; };
+		B823927221611DF600B5F753 /* MGNetworkUtilsEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGNetworkUtilsEx.swift; sourceTree = "<group>"; };
 		B8400388213F82D400282E11 /* mglang.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = mglang.txt; sourceTree = "<group>"; };
 		B840038D213F98A200282E11 /* RawLocaleSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawLocaleSetting.swift; sourceTree = "<group>"; };
-		B840038E213F98A200282E11 /* RawLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawLanguage.swift; sourceTree = "<group>"; };
 		B8776DE1207F346400CC8442 /* MGProjectConstructorSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGProjectConstructorSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8776DE4207F346400CC8442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8776DE6207F346400CC8442 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -143,7 +143,6 @@
 		B840038C213F984B00282E11 /* locale */ = {
 			isa = PBXGroup;
 			children = (
-				B840038E213F98A200282E11 /* RawLanguage.swift */,
 				B840038D213F98A200282E11 /* RawLocaleSetting.swift */,
 			);
 			path = locale;
@@ -215,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				B8776DFE207F349300CC8442 /* framework */,
+				B823927221611DF600B5F753 /* MGNetworkUtilsEx.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -385,29 +385,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MGProjectConstructorSwift/Pods-MGProjectConstructorSwift-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
-				"${BUILT_PRODUCTS_DIR}/CLImagePickerTool/CLImagePickerTool.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MGExtensionSwift/MGExtensionSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MGUtilsSwift/MGUtilsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CLImagePickerTool.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGExtensionSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGUtilsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -430,6 +420,7 @@
 				B8776E1B207F349300CC8442 /* MGRefreshHelper.swift in Sources */,
 				B881763E21427183004C508F /* MGAlamofireConnect.swift in Sources */,
 				B8776E1E207F349300CC8442 /* MGFgtManager.swift in Sources */,
+				B823927321611DF600B5F753 /* MGNetworkUtilsEx.swift in Sources */,
 				B8776E16207F349300CC8442 /* MGRequestContent.swift in Sources */,
 				B88175FE213FACAA004C508F /* MGSettingTag.swift in Sources */,
 				B881764021427831004C508F /* MGConnectResponse.swift in Sources */,
@@ -438,7 +429,6 @@
 				B8776DE7207F346400CC8442 /* ViewController.swift in Sources */,
 				B8776E1F207F349300CC8442 /* MGKeyboardPushMover.swift in Sources */,
 				B8776E19207F349300CC8442 /* RswiftEx.swift in Sources */,
-				B8400390213F98A200282E11 /* RawLanguage.swift in Sources */,
 				B8776DE5207F346400CC8442 /* AppDelegate.swift in Sources */,
 				B8776E24207F349300CC8442 /* MGBaseFgt.swift in Sources */,
 				B8776E1C207F349300CC8442 /* MGRequestSender.swift in Sources */,
@@ -522,7 +512,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -573,7 +563,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -592,7 +582,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magicalwater.MGProjectConstructorSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -608,7 +598,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.magicalwater.MGProjectConstructorSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -23,7 +23,7 @@ public class MGRequestContent: CustomStringConvertible {
     //自定義的 toString
     public var description: String {
         var result = "連線(\(method)) - 位址: \(scheme)://\(host)\(path), 參數: \(paramSource)"
-        if let path = contentHandler.saveInPath {
+        if let path = contentHandler.downloadInPath {
             result += "\n下載到路徑: \(path)"
         }
         if let deserialize = contentHandler.deserialize {
@@ -59,32 +59,37 @@ public class MGRequestContent: CustomStringConvertible {
             return l
         }
     }
+    
 
     //需要上傳的檔案
-    public var uploads: [String:Any]? {
+    public var uploads: [MGNetworkUploadData]? {
         get {
             if uploadSource.isEmpty { return nil }
-            var l: [String:Any] = [:]
+            var uploads: [MGNetworkUploadData] = []
             for (k,v) in uploadSource {
                 switch (v) {
                 case is Dictionary<String, Any>:
                     let map = v as! [String:Any]
                     for (num, innerV) in map {
-                        l["\(k)[\(num)]"] = innerV
+                        uploads.append(
+                            MGNetworkUploadData.init(name: "\(k)[\(num)]", fileName: "file", data: innerV)
+                        )
                     }
                 default:
-                    l[k] = v
+                    uploads.append(
+                        MGNetworkUploadData.init(name: k, fileName: "file", data: v)
+                    )
                 }
             }
-            return l
+            return uploads
         }
     }
 
     //資料帶入content, 有別於 param 跟 uploads 帶入的資料
-    public var contentData: Data?
+//    public var contentData: Data?
 
     //參數是否為 Json 格式
-    public var paramIsJson: Bool = false
+    public var paramEncoding: MGParamEncoding = MGURLEncoding.default
 
     //通常搭配資料庫lib, 是否從本地資料庫拉出相對應的 class 所儲存的資料
     public var locale: MGLocalCache = MGLocalCache() //本地的快取設定, 默認關閉
@@ -148,20 +153,20 @@ public extension MGRequestContent {
 
     //得到文件後是 下載/反序列化
     class MGContentHandler {
-        var saveInPath: String? = nil //包含檔名
+        var downloadInPath: String? = nil //包含檔名
         
         //進度回調
         var progressHandler: MGProgressHandler? = nil
         
-        var deserialize: MGJsonDeserializeDelegate.Type? = nil
+        var deserialize: Codable.Type? = nil
         
         init() {}
         
-        init(saveInPath: String, progressHandler: MGProgressHandler?) {
-            self.saveInPath = saveInPath
+        init(downloadInPath: String, progressHandler: MGProgressHandler?) {
+            self.downloadInPath = downloadInPath
         }
         
-        init(deserialize: MGJsonDeserializeDelegate.Type) {
+        init(deserialize: Codable.Type) {
             self.deserialize = deserialize
         }
     }
@@ -171,20 +176,20 @@ public extension MGRequestContent {
 //設定資料
 public extension MGRequestContent {
 
-    public func setDeserialize(_ deserialize: MGJsonDeserializeDelegate.Type) -> MGRequestContent {
+    public func setDeserialize(_ deserialize: Codable.Type) -> MGRequestContent {
         self.contentHandler.deserialize = deserialize
         return self
     }
     
     //代表要下載檔案, 可傳入回調方法
-    public func setSaveIn(_ path: String, progressHandler: MGProgressHandler? = nil) -> MGRequestContent {
-        self.contentHandler.saveInPath = path
+    public func setDownload(_ path: String, progressHandler: MGProgressHandler? = nil) -> MGRequestContent {
+        self.contentHandler.downloadInPath = path
         self.contentHandler.progressHandler = progressHandler
         return self
     }
 
-    public func setParamIsJson(_ isJson: Bool) -> MGRequestContent {
-        self.paramIsJson = isJson
+    public func setParamEncoding(_ econding: MGParamEncoding) -> MGRequestContent {
+        self.paramEncoding = econding
         return self
     }
 

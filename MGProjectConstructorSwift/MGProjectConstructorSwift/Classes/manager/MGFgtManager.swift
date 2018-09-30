@@ -344,27 +344,27 @@ class MGFgtManager {
             sendDisplayActionIfNeed(nowV, status: false)
             sendDisplayActionIfNeed(toVC, status: true)
 
-            nowV.vc.willMove(toParentViewController: nil)
-            baseContainerVC.addChildViewController(toVC.vc)
+            nowV.vc.willMove(toParent: nil)
+            baseContainerVC.addChild(toVC.vc)
             toVC.vc.view.isHidden = false
 
             baseContainerVC.transition(
                 from: nowV.vc,
                 to: toVC.vc,
                 duration: 0.2,
-                options: UIViewAnimationOptions.transitionCrossDissolve,
+                options: UIView.AnimationOptions.transitionCrossDissolve,
                 animations: nil,
                 completion: { _ in
-                    nowV.vc.removeFromParentViewController()
-                    toVC.vc.didMove(toParentViewController: self.baseContainerVC)
+                    nowV.vc.removeFromParent()
+                    toVC.vc.didMove(toParent: self.baseContainerVC)
                     toVC.vc.view.frame = inView.bounds
             })
         } else if toVC.vc.parent == nil {
             //當前container無vc存在, 且此vc沒有parentVC存在(即尚未加入), 需要做加入的動作
             //此處代表toVC從來沒加入過, 第一次不呼叫狀態通知
-            baseContainerVC.addChildViewController(toVC.vc)
+            baseContainerVC.addChild(toVC.vc)
             inView.addSubview(toVC.vc.view)
-            toVC.vc.didMove(toParentViewController: baseContainerVC)
+            toVC.vc.didMove(toParent: baseContainerVC)
 
             toVC.vc.view.frame = inView.bounds
         }

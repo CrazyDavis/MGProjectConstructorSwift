@@ -1,57 +1,36 @@
 PODS:
-  - Alamofire (4.7.3)
-  - AlamofireImage (3.3.1):
-    - Alamofire (~> 4.5)
-  - CLImagePickerTool (2.3.1)
-  - Kingfisher (4.9.0)
-  - MGExtensionSwift (0.0.6)
-  - MGUtilsSwift (0.1.7):
-    - CLImagePickerTool (~> 2.3.1)
-    - Kingfisher (~> 4.0)
+  - Kingfisher (4.10.0)
+  - MGExtensionSwift (1.0.0)
+  - MGUtilsSwift (1.0.1):
+    - Kingfisher (~> 4.10.0)
     - ReachabilitySwift
-    - SwiftyJSON
-    - Toast-Swift (~> 3.0.1)
-  - R.swift (4.0.0):
-    - R.swift.Library (~> 4.0.0)
-  - R.swift.Library (4.0.0)
+  - R.swift (5.0.0.alpha.2):
+    - R.swift.Library (~> 5.0.0.alpha.2)
+  - R.swift.Library (5.0.0.alpha.2)
   - ReachabilitySwift (4.2.1)
-  - SwiftyJSON (4.1.0)
-  - Toast-Swift (3.0.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.4)
-  - AlamofireImage (~> 3.3)
   - MGExtensionSwift
   - MGUtilsSwift
-  - R.swift
+  - R.swift (~> 5.0.0.alpha.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Alamofire
-    - AlamofireImage
-    - CLImagePickerTool
     - Kingfisher
     - MGExtensionSwift
     - MGUtilsSwift
     - R.swift
     - R.swift.Library
     - ReachabilitySwift
-    - SwiftyJSON
-    - Toast-Swift
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
-  CLImagePickerTool: cb3bda742d5125943190523edeb3d4751e84cde3
-  Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
-  MGExtensionSwift: 4a2b77d05982a15b4c0b976d2cf9df3bdaf9e642
-  MGUtilsSwift: ae38a117fb588bf349b55e8e6d6b577a6485c962
-  R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
-  R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
+  MGExtensionSwift: f2706dbfb1e0dfeade0defcdd9271736b2fcf009
+  MGUtilsSwift: 15559257c8db911b2ea27ac02f7a7754861270b3
+  R.swift: 31fa1bd537fa81307815cc622122f33331f32174
+  R.swift.Library: 3c21b823839bf5a6769dc7f96cb44479dab51b1b
   ReachabilitySwift: 35720ffea59c1c76d15f885be77fd33e33985427
-  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
-  Toast-Swift: ba0b01b095aada709d915f9beb1d38184a2721c3
 
-PODFILE CHECKSUM: d7e917ce15e70006f7406d409f09eefe0cfa3728
+PODFILE CHECKSUM: ae81a62c53f307eb8f5434057f7978bee980f567
 
 COCOAPODS: 1.5.3

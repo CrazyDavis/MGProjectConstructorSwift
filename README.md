@@ -15,6 +15,11 @@
 7. qrcode 掃描
 
 ## 版本  
+1.0.0 -   
+1. 更新 swift version 至 4.2.  
+2. 修正 MGBaseFgt 沒有呼叫到 settingFgtManager.  
+3. 更換 網路 request 請求lib, 取消alamofire 改採自行封裝的 MGNetworkUtils.  
+
 0.1.7 - 增加 MGRequestConnect 接口, 可用 block closure 的方式處理相關回調  
 0.1.6 - 刪除無用class  
 0.1.5 - MGRequestContent 將動作更改為 contentHandler 封裝, 可選擇反序列化/下載檔案, 下載可監測進度  
