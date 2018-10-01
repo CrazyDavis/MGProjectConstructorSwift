@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "MGProjectConstructorSwift"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "A Project Base Constructor."
 
   s.description  = <<-DESC
@@ -36,5 +36,6 @@ Pod::Spec.new do |s|
   s.dependency 'MGUtilsSwift'
   s.dependency 'MGExtensionSwift'
   s.dependency 'R.swift', '~> 5.0.0.alpha.2'
+  s.dependency 'SwiftyJSON', '~> 4.2.0'
 
 end

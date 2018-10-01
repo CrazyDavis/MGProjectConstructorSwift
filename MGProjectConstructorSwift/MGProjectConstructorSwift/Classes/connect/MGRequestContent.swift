@@ -104,9 +104,6 @@ public class MGRequestContent: CustomStringConvertible {
 
     //同 paramSource, 差別在於此參數專給 uploads
     private var uploadSource: [String:Any] = [:]
-    
-    //同 paramSource, 差別在於此參數專給 headers
-    private var headerSource: [String:Any] = [:]
 
     public init(_ scheme: MGRequestContent.Scheme,
          host: String,
@@ -158,7 +155,7 @@ public extension MGRequestContent {
         //進度回調
         public var progressHandler: MGProgressHandler? = nil
         
-        public var deserialize: MGCodable.Type? = nil
+        public var deserialize: MGSwiftyJsonDelegate? = nil
         
         init() {}
         
@@ -166,7 +163,7 @@ public extension MGRequestContent {
             self.downloadInPath = downloadInPath
         }
         
-        init(deserialize: MGCodable.Type) {
+        init(deserialize: MGSwiftyJsonDelegate) {
             self.deserialize = deserialize
         }
     }
@@ -176,7 +173,7 @@ public extension MGRequestContent {
 //設定資料
 public extension MGRequestContent {
 
-    public func setDeserialize(_ deserialize: MGCodable.Type) -> MGRequestContent {
+    public func setDeserialize(_ deserialize: MGSwiftyJsonDelegate) -> MGRequestContent {
         self.contentHandler.deserialize = deserialize
         return self
     }
@@ -229,16 +226,8 @@ public extension MGRequestContent {
     }
     
     //加入頭
-    public func addHeader(_ key: String, value: String, array: Bool) -> MGRequestContent {
-        addingValue(with: &headerSource, key: key, adding: value, isArray: array)
-        return self
-    }
-    
-    //加入多個頭
-    public func addHeaders(_ key: String, value: [String]) -> MGRequestContent {
-        value.forEach { (v) in
-            _ = addHeader(key, value: v, array: true)
-        }
+    public func setHeader(_ key: String, value: String, array: Bool) -> MGRequestContent {
+        headers[key] = value
         return self
     }
 

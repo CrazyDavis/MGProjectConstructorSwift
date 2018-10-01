@@ -8,11 +8,13 @@ PODS:
     - R.swift.Library (~> 5.0.0.alpha.2)
   - R.swift.Library (5.0.0.alpha.2)
   - ReachabilitySwift (4.2.1)
+  - SwiftyJSON (4.2.0)
 
 DEPENDENCIES:
   - MGExtensionSwift
   - MGUtilsSwift
   - R.swift (~> 5.0.0.alpha.2)
+  - SwiftyJSON (~> 4.2.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -22,6 +24,7 @@ SPEC REPOS:
     - R.swift
     - R.swift.Library
     - ReachabilitySwift
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
@@ -30,7 +33,8 @@ SPEC CHECKSUMS:
   R.swift: 31fa1bd537fa81307815cc622122f33331f32174
   R.swift.Library: 3c21b823839bf5a6769dc7f96cb44479dab51b1b
   ReachabilitySwift: 35720ffea59c1c76d15f885be77fd33e33985427
+  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: ae81a62c53f307eb8f5434057f7978bee980f567
+PODFILE CHECKSUM: 0ec8f37b13a57faf7ac14443e5016a05d5e505f7
 
 COCOAPODS: 1.5.3

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B8160B70213D2BD4000EB4BD /* MGFgtHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8160B6F213D2BD4000EB4BD /* MGFgtHelper.swift */; };
 		B823927321611DF600B5F753 /* MGNetworkUtilsEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B823927221611DF600B5F753 /* MGNetworkUtilsEx.swift */; };
-		B82393F52161DE9B00B5F753 /* MGCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82393F42161DE9B00B5F753 /* MGCodable.swift */; };
+		B8239440216275E700B5F753 /* MGSwiftyJsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B823943F216275E700B5F753 /* MGSwiftyJsonUtils.swift */; };
 		B8400389213F82D400282E11 /* mglang.txt in Resources */ = {isa = PBXBuildFile; fileRef = B8400388213F82D400282E11 /* mglang.txt */; };
 		B840038F213F98A200282E11 /* RawLocaleSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840038D213F98A200282E11 /* RawLocaleSetting.swift */; };
 		B8776DE5207F346400CC8442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776DE4207F346400CC8442 /* AppDelegate.swift */; };
@@ -51,7 +51,7 @@
 		B7585E13966D72A6A5103CCD /* Pods_MGProjectConstructorSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MGProjectConstructorSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8160B6F213D2BD4000EB4BD /* MGFgtHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGFgtHelper.swift; sourceTree = "<group>"; };
 		B823927221611DF600B5F753 /* MGNetworkUtilsEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGNetworkUtilsEx.swift; sourceTree = "<group>"; };
-		B82393F42161DE9B00B5F753 /* MGCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGCodable.swift; sourceTree = "<group>"; };
+		B823943F216275E700B5F753 /* MGSwiftyJsonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGSwiftyJsonUtils.swift; sourceTree = "<group>"; };
 		B8400388213F82D400282E11 /* mglang.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = mglang.txt; sourceTree = "<group>"; };
 		B840038D213F98A200282E11 /* RawLocaleSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawLocaleSetting.swift; sourceTree = "<group>"; };
 		B8776DE1207F346400CC8442 /* MGProjectConstructorSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGProjectConstructorSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +117,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B823943E2162754500B5F753 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				B823943F216275E700B5F753 /* MGSwiftyJsonUtils.swift */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
 		B8400387213F82AE00282E11 /* raw */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,7 +138,6 @@
 			children = (
 				B88177162146741F004C508F /* api */,
 				B840038B213F983D00282E11 /* raw */,
-				B82393F42161DE9B00B5F753 /* MGCodable.swift */,
 			);
 			path = deserializeModel;
 			sourceTree = "<group>";
@@ -188,6 +195,7 @@
 		B8776DF6207F349300CC8442 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B823943E2162754500B5F753 /* util */,
 				B840038A213F982A00282E11 /* deserializeModel */,
 				B8400387213F82AE00282E11 /* raw */,
 				B8776DF8207F349300CC8442 /* connect */,
@@ -393,6 +401,7 @@
 				"${BUILT_PRODUCTS_DIR}/MGUtilsSwift/MGUtilsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -401,6 +410,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGUtilsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -418,6 +428,7 @@
 				B8776E15207F349300CC8442 /* MGRequestConnect.swift in Sources */,
 				B8776E1A207F349300CC8442 /* MGApiHelper.swift in Sources */,
 				B8776E25207F349300CC8442 /* MGFgtDataHelper.swift in Sources */,
+				B8239440216275E700B5F753 /* MGSwiftyJsonUtils.swift in Sources */,
 				B8776E14207F349300CC8442 /* MGPageInfo.swift in Sources */,
 				B8160B70213D2BD4000EB4BD /* MGFgtHelper.swift in Sources */,
 				B8776E1B207F349300CC8442 /* MGRefreshHelper.swift in Sources */,
@@ -426,7 +437,6 @@
 				B823927321611DF600B5F753 /* MGNetworkUtilsEx.swift in Sources */,
 				B8776E16207F349300CC8442 /* MGRequestContent.swift in Sources */,
 				B88175FE213FACAA004C508F /* MGSettingTag.swift in Sources */,
-				B82393F52161DE9B00B5F753 /* MGCodable.swift in Sources */,
 				B881764021427831004C508F /* MGConnectResponse.swift in Sources */,
 				B840038F213F98A200282E11 /* RawLocaleSetting.swift in Sources */,
 				B8776E18207F349300CC8442 /* AlamofireEx.swift in Sources */,

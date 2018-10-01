@@ -82,14 +82,6 @@ public class MGUrlRequest {
         }
     }
 
-//    public func addAttachData(_ key: String, data: Any) {
-//        attachData[key] = data
-//    }
-//
-//    public func getAttachData<T>(_ key: String) -> T? {
-//        return attachData[key] as? T
-//    }
-
     //request執行的類型
     public enum MGExecuteType {
         case successBack    //只要遇到成功即回傳, 換句話說直到成功為止

@@ -7,6 +7,7 @@ target 'MGProjectConstructorSwift' do
 
   # Pods for MGProjectConstructorSwift
   pod 'R.swift', '~> 5.0.0.alpha.2'
+  pod 'SwiftyJSON', '~> 4.2.0'
   pod 'MGUtilsSwift'
   pod 'MGExtensionSwift'
 
