@@ -16,10 +16,10 @@ typealias MGRequestConnectHandler = (_ request: MGUrlRequest, _ success: Bool) -
 typealias MGResponseParserForMutliRequest = (_ request: MGUrlRequest, _ tag: String, _ tep: Int) -> Void
 
 //以block closure 處理 MGResponseParser的parser
-typealias MGResponseParserForParser = (_ response: MGNetworkResponse?, _ deserialize: Codable.Type?) -> MGUrlRequest.MGResponse
+typealias MGResponseParserForParser = (_ response: MGNetworkResponse, _ deserialize: MGCodable.Type?) -> MGUrlRequest.MGResponse
 
 //以block closure 處理 MGResponseParser的download
-typealias MGResponseParserForDownload = (_ response: MGNetworkResponse?) -> MGUrlRequest.MGResponse
+typealias MGResponseParserForDownload = (_ response: MGNetworkResponse) -> MGUrlRequest.MGResponse
 
 /*
  此類針對 Request Builder 進行封裝
@@ -242,7 +242,7 @@ public class MGRequestConnect {
     }
     
     //發送解析回調
-    private static func sendParserBack(_ response: MGNetworkResponse?, deserialize: Codable.Type?,
+    private static func sendParserBack(_ response: MGNetworkResponse, deserialize: MGCodable.Type?,
                                        customParser: MGResponseParserForParser?) -> MGUrlRequest.MGResponse {
         if let customParser = customParser {
             return customParser(response, deserialize)
@@ -252,7 +252,7 @@ public class MGRequestConnect {
     }
     
     //發送下載回調
-    private static func sendDownloadBack(_ response: MGNetworkResponse?, customDownload: MGResponseParserForDownload?) -> MGUrlRequest.MGResponse {
+    private static func sendDownloadBack(_ response: MGNetworkResponse, customDownload: MGResponseParserForDownload?) -> MGUrlRequest.MGResponse {
         if let customDownload = customDownload {
             return customDownload(response)
         } else {
@@ -274,15 +274,15 @@ public protocol MGResponseParser: class {
     func multipleRequest(request: MGUrlRequest, tag: String, step: Int)
     
     //解析response的回傳
-    func parser(_ response: MGNetworkResponse?, deserialize: Codable.Type?) -> MGUrlRequest.MGResponse
+    func parser(_ response: MGNetworkResponse, deserialize: MGCodable.Type?) -> MGUrlRequest.MGResponse
     
     //下載檔案
-    func download(_ response: MGNetworkResponse?) -> MGUrlRequest.MGResponse
+    func download(_ response: MGNetworkResponse) -> MGUrlRequest.MGResponse
 }
 
 //以下三個方法都不一定會用到, 為了方便給自訂parser使用, 因此這邊直接繼承變可選
 public extension MGResponseParser {
     func multipleRequest(request: MGUrlRequest, tag: String, step: Int) {}
-    func parser(_ response: MGNetworkResponse?, deserialize: Codable.Type?) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
-    func download(_ response: MGNetworkResponse?) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
+    func parser(_ response: MGNetworkResponse, deserialize: MGCodable.Type?) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
+    func download(_ response: MGNetworkResponse) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
 }

@@ -152,13 +152,13 @@ public extension MGRequestContent {
     }
 
     //得到文件後是 下載/反序列化
-    class MGContentHandler {
-        var downloadInPath: String? = nil //包含檔名
+    public class MGContentHandler {
+        public var downloadInPath: String? = nil //包含檔名
         
         //進度回調
-        var progressHandler: MGProgressHandler? = nil
+        public var progressHandler: MGProgressHandler? = nil
         
-        var deserialize: Codable.Type? = nil
+        public var deserialize: MGCodable.Type? = nil
         
         init() {}
         
@@ -166,7 +166,7 @@ public extension MGRequestContent {
             self.downloadInPath = downloadInPath
         }
         
-        init(deserialize: Codable.Type) {
+        init(deserialize: MGCodable.Type) {
             self.deserialize = deserialize
         }
     }
@@ -176,7 +176,7 @@ public extension MGRequestContent {
 //設定資料
 public extension MGRequestContent {
 
-    public func setDeserialize(_ deserialize: Codable.Type) -> MGRequestContent {
+    public func setDeserialize(_ deserialize: MGCodable.Type) -> MGRequestContent {
         self.contentHandler.deserialize = deserialize
         return self
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 //多國語言json
-class RawLocaleSetting: Codable {
+class RawLocaleSetting: MGCodable {
 
 	var language : [RawLanguage]
 	var version : Int

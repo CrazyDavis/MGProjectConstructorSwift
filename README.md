@@ -15,6 +15,7 @@
 7. qrcode 掃描
 
 ## 版本  
+1.0.1 - 修改 MGRequestContent 需要反序列化的 class, 必需繼承 MGCodable  
 1.0.0 -   
 1. 更新 swift version 至 4.2.  
 2. 修正 MGBaseFgt 沒有呼叫到 settingFgtManager.  
