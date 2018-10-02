@@ -15,6 +15,7 @@
 7. qrcode 掃描
 
 ## 版本
+1.0.5 - MGRequestContent 新增 header 相關設定方法與邏輯, 增加全局 header "MGRequestContent.globalHeaders"  
 1.0.4 - 修正 MGContentHandler 需要帶入的反序列化 class 類型錯誤  
 1.0.3 - 修改 MGRequestConnect 的使用方式  
 1.0.2 - 因 codable 無法滿足需求, 解析 Json 工具重新引入 swiftyJson, MGRequestContent 需要反序列化的 class 改回需要繼承 MGSwiftyJsonDelegate  

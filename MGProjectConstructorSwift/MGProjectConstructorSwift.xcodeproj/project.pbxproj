@@ -38,8 +38,6 @@
 		B8776E26207F349300CC8442 /* MGFgtStatusHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E12207F349300CC8442 /* MGFgtStatusHelper.swift */; };
 		B8776E27207F349300CC8442 /* MGVCBackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8776E13207F349300CC8442 /* MGVCBackHelper.swift */; };
 		B88175FE213FACAA004C508F /* MGSettingTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88175FD213FACAA004C508F /* MGSettingTag.swift */; };
-		B881763E21427183004C508F /* MGAlamofireConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B881763D21427183004C508F /* MGAlamofireConnect.swift */; };
-		B881764021427831004C508F /* MGConnectResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B881763F21427831004C508F /* MGConnectResponse.swift */; };
 		B8D4ACD920A4345F000847F0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B8D4ACD820A4345F000847F0 /* README.md */; };
 		B8D4ACDB20A43465000847F0 /* MGProjectConstructorSwift.podspec in Resources */ = {isa = PBXBuildFile; fileRef = B8D4ACDA20A43465000847F0 /* MGProjectConstructorSwift.podspec */; };
 		C37FBEFB9479225D736B2655 /* Pods_MGProjectConstructorSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7585E13966D72A6A5103CCD /* Pods_MGProjectConstructorSwift.framework */; };
@@ -82,8 +80,6 @@
 		B8776E12207F349300CC8442 /* MGFgtStatusHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGFgtStatusHelper.swift; sourceTree = "<group>"; };
 		B8776E13207F349300CC8442 /* MGVCBackHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MGVCBackHelper.swift; sourceTree = "<group>"; };
 		B88175FD213FACAA004C508F /* MGSettingTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGSettingTag.swift; sourceTree = "<group>"; };
-		B881763D21427183004C508F /* MGAlamofireConnect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGAlamofireConnect.swift; sourceTree = "<group>"; };
-		B881763F21427831004C508F /* MGConnectResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGConnectResponse.swift; sourceTree = "<group>"; };
 		B8D4ACD820A4345F000847F0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		B8D4ACDA20A43465000847F0 /* MGProjectConstructorSwift.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MGProjectConstructorSwift.podspec; path = ../../MGProjectConstructorSwift.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,8 +211,6 @@
 				B8776DFA207F349300CC8442 /* MGRequestConnect.swift */,
 				B8776DFB207F349300CC8442 /* MGRequestContent.swift */,
 				B8776DFC207F349300CC8442 /* MGUrlRequest.swift */,
-				B881763D21427183004C508F /* MGAlamofireConnect.swift */,
-				B881763F21427831004C508F /* MGConnectResponse.swift */,
 			);
 			path = connect;
 			sourceTree = "<group>";
@@ -432,12 +426,10 @@
 				B8776E14207F349300CC8442 /* MGPageInfo.swift in Sources */,
 				B8160B70213D2BD4000EB4BD /* MGFgtHelper.swift in Sources */,
 				B8776E1B207F349300CC8442 /* MGRefreshHelper.swift in Sources */,
-				B881763E21427183004C508F /* MGAlamofireConnect.swift in Sources */,
 				B8776E1E207F349300CC8442 /* MGFgtManager.swift in Sources */,
 				B823927321611DF600B5F753 /* MGNetworkUtilsEx.swift in Sources */,
 				B8776E16207F349300CC8442 /* MGRequestContent.swift in Sources */,
 				B88175FE213FACAA004C508F /* MGSettingTag.swift in Sources */,
-				B881764021427831004C508F /* MGConnectResponse.swift in Sources */,
 				B840038F213F98A200282E11 /* RawLocaleSetting.swift in Sources */,
 				B8776E18207F349300CC8442 /* AlamofireEx.swift in Sources */,
 				B8776DE7207F346400CC8442 /* ViewController.swift in Sources */,

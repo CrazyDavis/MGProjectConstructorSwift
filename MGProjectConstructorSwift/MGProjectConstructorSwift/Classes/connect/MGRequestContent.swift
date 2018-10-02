@@ -19,6 +19,10 @@ import MGUtilsSwift
 public typealias MGProgressHandler = (Progress) -> Void
 
 public class MGRequestContent: CustomStringConvertible {
+    
+    //全局的 header, 所有的 requestContent 皆會默認帶入此 header
+    //若與 局部的 header 衝突, 則以局部的為主
+    public static var globalHeaders: [String : String] = [:]
 
     //自定義的 toString
     public var description: String {
@@ -38,7 +42,16 @@ public class MGRequestContent: CustomStringConvertible {
     public var method: Method //用什麼方式連接, GET 或 POST
 
     //要求頭
-    public var headers: [String:String] = [:]
+    public var headers: [String:String] {
+        get {
+            //合併 headerSource 以及 globalHeader
+            var header: [String : String] = MGRequestContent.globalHeaders
+            headerSource.forEach {
+                header[$0.key] = $0.value
+            }
+            return header
+        }
+    }
 
     //要求的參數
     public var params: [String:String] {
@@ -100,10 +113,13 @@ public class MGRequestContent: CustomStringConvertible {
     public var contentHandler: MGContentHandler = MGContentHandler() //得到回傳後需要做的動作, 需要反序列化的 class 或者 下載到目的路徑
 
     //這邊處存內部已有的 param key, 對應到已經加入多少個, 方便取出時加入陣列字串
-    private var paramSource: [String:Any] = [:]
+    private var paramSource: [String : Any] = [:]
 
     //同 paramSource, 差別在於此參數專給 uploads
-    private var uploadSource: [String:Any] = [:]
+    private var uploadSource: [String : Any] = [:]
+    
+    //同 headerSource, 差別在於此參數專給 headers
+    private var headerSource: [String : String] = [:]
 
     public init(_ scheme: MGRequestContent.Scheme,
          host: String,
@@ -226,8 +242,16 @@ public extension MGRequestContent {
     }
     
     //加入頭
-    public func setHeader(_ key: String, value: String, array: Bool) -> MGRequestContent {
-        headers[key] = value
+    public func addHeader(_ key: String, value: String) -> MGRequestContent {
+        headerSource[key] = value
+        return self
+    }
+    
+    //加入頭
+    public func addHeaders(_ headers: [String : String]) -> MGRequestContent {
+        headers.forEach {
+            _ = addHeader($0.key, value: $0.value)
+        }
         return self
     }
 
