@@ -32,7 +32,7 @@ public class MGRequestSender: MGRequestCallback {
     /**************************供外部呼叫 以下********************************/
     //發送 REQUEST, 默認 code 是 REQUEST_DEFAUT
     public func send(_ request: MGUrlRequest, requestCode: Int = REQUEST_DEFAUT) {
-        MGRequestConnect.getData(request, requestCode: requestCode, callback: self)
+        MGRequestConnect.shared.getData(request, requestCode: requestCode, callback: self)
     }
     /**************************供外部呼叫 結束********************************/
 

@@ -10,16 +10,16 @@ import Foundation
 import MGUtilsSwift
 
 //以block closure 回調
-typealias MGRequestConnectHandler = (_ request: MGUrlRequest, _ success: Bool) -> Void
+public typealias MGRequestConnectHandler = (_ request: MGUrlRequest, _ success: Bool) -> Void
 
 //以block closure 處理 MGResponseParser的multiRequest
-typealias HandleMutliRequest = (_ request: MGUrlRequest, _ tag: String, _ step: Int) -> Void
+public typealias HandleMutliRequest = (_ request: MGUrlRequest, _ tag: String, _ step: Int) -> Void
 
 //以block closure 處理 MGResponseParser的parser
-typealias HandleParser = (_ response: MGNetworkResponse, _ deserialize: MGSwiftyJsonDelegate?) -> MGUrlRequest.MGResponse
+public typealias HandleParser = (_ response: MGNetworkResponse, _ deserialize: MGSwiftyJsonDelegate?) -> MGUrlRequest.MGResponse
 
 //以block closure 處理 MGResponseParser的download
-typealias HandleDownload = (_ response: MGNetworkResponse) -> MGUrlRequest.MGResponse
+public typealias HandleDownload = (_ response: MGNetworkResponse) -> MGUrlRequest.MGResponse
 
 /*
  此類針對 Request Builder 進行封裝
@@ -28,74 +28,102 @@ typealias HandleDownload = (_ response: MGNetworkResponse) -> MGUrlRequest.MGRes
 public class MGRequestConnect {
     
     //設置此參數預設反序列化/下載檔案/多request的處理
-    public weak static var defaultResponseParserHandler: MGResponseParser?
+    public weak var defaultResponseParserHandler: MGResponseParser?
+    
+    //自訂 block 處理多筆request
+    public var mutliRequestHandler: HandleMutliRequest?
+    
+    //自訂 block 處理request回傳解析
+    public var requestParserHandler: HandleParser?
+    
+    //自訂 block 處理download request
+    public var downloadRequestHandler: HandleDownload?
+    
+    public static let shared: MGRequestConnect = MGRequestConnect.init()
     
     //可帶入是否自訂處理response
-    static func getData(_ request: MGUrlRequest, requestCode: Int, callback: MGRequestCallback) {
+    public func getData(_ request: MGUrlRequest, requestCode: Int, callback: MGRequestCallback) {
         MGThreadUtils.inSubAsync {
-            loopRequestStep(request, requestCode: requestCode, mutliRequest: nil, parser: nil, download: nil, callback: callback)
+            self.loopRequestStep(request, requestCode: requestCode, callback: callback)
         }
     }
     
     //以 block 的方式處理回傳資料
-    static func getData(_ request: MGUrlRequest, handler: @escaping MGRequestConnectHandler) {
+    public func getData(_ request: MGUrlRequest, handler: @escaping MGRequestConnectHandler) {
         MGThreadUtils.inSubAsync {
-            loopRequestStep(request, requestCode: -1, mutliRequest: nil, parser: nil, download: nil, handler: handler)
+            self.loopRequestStep(request, requestCode: -1, handler: handler)
         }
     }
     
-    //自訂ResponseParserHandler, 不使用 default 的 defaultResponseParserHandler, 最後以 block closure 回調
-    static func getDataCustomParser(_ request: MGUrlRequest,
-                                    mutliRequest: HandleMutliRequest?,
-                                    parser: HandleParser?,
-                                    download: HandleDownload?,
-                                    handler: @escaping MGRequestConnectHandler) {
-        MGThreadUtils.inSubAsync {
-            loopRequestStep(request, requestCode: -1, mutliRequest: mutliRequest, parser: parser, download: download, handler: handler)
-        }
+    /*
+     設置預設的request回傳handler
+     此預設handler是個 protocol, 包含以下三項
+     1. 多筆 request 的回調
+     2. 每筆 request 當設置需要返序列化時的回調
+     3. 下載 reqeust 的回調
+     */
+    public func setDefaultResponseHandler(handler: MGResponseParser?) -> MGRequestConnect {
+        self.defaultResponseParserHandler = handler
+        return self
     }
     
-    //自訂ResponseParserHandler, 不使用 default 的 defaultResponseParserHandler, 最後以 call back 回調
-    static func getDataCustomParser(_ request: MGUrlRequest,
-                                    mutliRequest: HandleMutliRequest?,
-                                    parser: HandleParser?,
-                                    download: HandleDownload?,
-                                    callback: MGRequestCallback) {
-        MGThreadUtils.inSubAsync {
-            loopRequestStep(request, requestCode: -1, mutliRequest: mutliRequest, parser: parser, download: download, callback: callback)
-        }
+    /*
+     設置 多筆 request 的回調
+     當 mutliRequestHandler 與 defaultResponseParserHandler 皆有設置時
+     defaultResponseParserHandler 的 multipleRequest 將不會呼叫
+     */
+    public func setMultiHandler(handler: HandleMutliRequest?) -> MGRequestConnect {
+        self.mutliRequestHandler = handler
+        return self
+    }
+    
+    /*
+     設置 每筆 request 當設置需要返序列化時的回調 的回調
+     當 requestParserHandler 與 defaultResponseParserHandler 皆有設置時
+     defaultResponseParserHandler 的 parser 將不會呼叫
+     */
+    public func setParserHandler(handler: HandleParser?) -> MGRequestConnect {
+        self.requestParserHandler = handler
+        return self
+    }
+    
+    /*
+     設置 下載 reqeust 的回調
+     當 mutliRequestHandler 與 defaultResponseParserHandler 皆有設置時
+     defaultResponseParserHandler 的 download 將不會呼叫
+     */
+    public func setDownloadHandler(handler: HandleDownload?) -> MGRequestConnect {
+        self.downloadRequestHandler = handler
+        return self
     }
     
     //開始循環獲取資料
-    private static func loopRequestStep(_ request: MGUrlRequest, requestCode: Int,
-                                        mutliRequest: HandleMutliRequest?,
-                                        parser: HandleParser?,
-                                        download: HandleDownload?,
-                                        callback: MGRequestCallback? = nil, handler: MGRequestConnectHandler? = nil) {
+    private func loopRequestStep(_ request: MGUrlRequest, requestCode: Int,
+                                 callback: MGRequestCallback? = nil,
+                                 handler: MGRequestConnectHandler? = nil) {
         
         for i in 0..<request.runSort.count {
             
             //開始執行並聯需求
             let runSort = request.runSort[i]
             
+            //多個request併發執行
             MGThreadUtils.inSubMulti(total: runSort.count) { number in
                 //得到執行的urlIndex
                 let urlIndex = runSort[number]
                 print("執行ApiRequest: urlIndex = \(urlIndex)")
-                
-                distributionConnect(request, parser: parser, download: download, urlIndex: urlIndex)
+                self.distributionConnect(request, urlIndex: urlIndex)
             }
-            
             
             //執行完一個階段, 需要根據設置的連線類型檢查錯誤
             let nextStep = checkExecuteStatus(request, executeIndex: runSort)
             if (!nextStep) {
                 
-                //有可能不繼續執行下個步驟的為
-                //DEFAULT, SUCCESS_BACK
-                //若是 DEFAULT 則成功參數返回FALSE 沒有問題
-                //若是 SUCCESS_BACK 則是找到了成功的案例, 則返回true
-                
+                /*
+                 下列兩種類型不繼續執行下個步驟
+                 1. DEFAULT      - 則成功參數返回FALSE 沒有問題
+                 2. SUCCESS_BACK - 找到了成功的案例, 則返回true
+                 */
                 switch request.executeType {
                 case .successBack:
                     MGThreadUtils.inMainAsync {
@@ -114,35 +142,42 @@ public class MGRequestConnect {
                 }
                 
             } else {
-                //代表可以繼續往下執行
-                //同時檢測是否有下個step, 有的話呼叫handler的 multipleRequest
-                //方便特殊處理
+                /*
+                 可以繼續往下執行, 同時檢測是否有下個step,
+                 有的話呼叫handler的 multipleRequest, 方便特殊處理
+                 */
                 if (i < request.runSort.count - 1 && request.requestTag != nil) {
-                    sendMutliRequestBack(request, tag: request.requestTag!, step: i, customMutliRequest: mutliRequest)
+                    sendMutliRequestBack(request, tag: request.requestTag!, step: i)
                 }
             }
             
         }
         
-        //執行到最後了
-        //DEFAULT, SUCCESS_BACK, ALL
-        //若是 ALL          則成功參數返回TRUE 沒有問題
-        //若是 DEFAULT      則成功參數返回TRUE 沒有問題
-        //若是 SUCCESS_BACK 則是沒有成功, 回傳 FALSE
+        //檢查request是否成功執行
+        let isRequestSuccess = isRequestExecuteSuccess(request: request)
         MGThreadUtils.inMainAsync {
-            switch request.executeType {
-            case .successBack:
-                callback?.response(request, requestCode: requestCode, success: false)
-                handler?(request, false)
-            case .errorBack:
-                callback?.response(request, requestCode: requestCode, success: true)
-                handler?(request, true)
-            case .all:
-                callback?.response(request, requestCode: requestCode, success: true)
-                handler?(request, true)
-            }
+            callback?.response(request, requestCode: requestCode, success: false)
+            handler?(request, isRequestSuccess)
         }
         
+    }
+    
+    /*
+     requst執行到最後, 檢查是否是一個成功的執行
+     DEFAULT, SUCCESS_BACK, ALL
+     1. ALL             - 成功參數返回TRUE
+     2. DEFAULT         - 成功參數返回TRUE
+     2. SUCCESS_BACK    - 沒有成功, 回傳 FALSE
+     */
+    private func isRequestExecuteSuccess(request: MGUrlRequest) -> Bool {
+        switch request.executeType {
+        case .successBack:
+            return false
+        case .errorBack:
+            return true
+        case .all:
+            return true
+        }
     }
     
     /*
@@ -150,7 +185,7 @@ public class MGRequestConnect {
      @param executeIndex: 代表此階段執行了這些index的url, 所以檢查是針對這些request做檢查
      回傳: 代表是否需要繼續執行下個階段, 而非是否發生錯誤
      */
-    private static func checkExecuteStatus(_ request: MGUrlRequest, executeIndex: [Int]) -> Bool {
+    private func checkExecuteStatus(_ request: MGUrlRequest, executeIndex: [Int]) -> Bool {
         switch request.executeType {
             
         //全部執行完畢才返回, 所以不檢查錯誤
@@ -174,10 +209,7 @@ public class MGRequestConnect {
     }
     
     //開始處理request, 從本地快取撈資料, 或者使用 get, post取資料
-    private static func distributionConnect(_ request: MGUrlRequest,
-                                            parser: HandleParser?,
-                                            download: HandleDownload?,
-                                            urlIndex: Int) {
+    private func distributionConnect(_ request: MGUrlRequest, urlIndex: Int) {
         
         //接著判斷是否需要從本地撈取資料, 以及本地有無資料存在
         //資料庫快取部分尚未完成, 因此這部分直接略過
@@ -185,38 +217,31 @@ public class MGRequestConnect {
             return
         }
         
-        startConnect(request, parser: parser, download: download, urlIndex: urlIndex)
+        startConnect(request, urlIndex: urlIndex)
     }
     
     //確定要從網路撈取資料了
-    private static func startConnect(_ request: MGUrlRequest,
-                                     parser: HandleParser?,
-                                     download: HandleDownload?,
-                                     urlIndex: Int) {
+    private func startConnect(_ request: MGUrlRequest, urlIndex: Int) {
         print("連線開始: \(request.content[urlIndex])")
         let requestContent = request.content[urlIndex]
         
         let response = MGNetworkUtils.share.connect(with: requestContent)
-        responseDataHandle(request, response: response, parser: parser, download: download, urlIndex: urlIndex)
+        responseDataHandle(request, response: response, urlIndex: urlIndex)
         
     }
     
     //檔案處理回傳
-    private static func responseDataHandle(_ request: MGUrlRequest,
-                                           response: MGNetworkResponse,
-                                           parser: HandleParser?,
-                                           download: HandleDownload?,
-                                           urlIndex: Int) {
+    private func responseDataHandle(_ request: MGUrlRequest, response: MGNetworkResponse, urlIndex: Int) {
         
         //判斷下載檔案還是反序列化
         //若兩個同時設置, 則反序列化失效
         let contentHandler = request.content[urlIndex].contentHandler
         if let path = contentHandler.downloadInPath {
-            let response = sendDownloadBack(response, customDownload: download)
+            let response = sendDownloadBack(response)
             request.response[urlIndex] = response
             print("連線返回: 下載檔案: (\(String(describing: response.httpStatus))) 下載到 = \(path) path = \(String(describing: request.content[urlIndex].getURL()?.path)) \(response.isSuccess ? "成功" : "失敗")")
         } else if let deserizalize = contentHandler.deserialize {
-            let response = sendParserBack(response, deserialize: deserizalize, customParser: parser)
+            let response = sendParserBack(response, deserialize: deserizalize)
             request.response[urlIndex] = response
             print("連線返回: 反序列化: (\(String(describing: response.httpStatus))) path = \(String(describing: request.content[urlIndex].getURL()?.path)) \(response.isSuccess ? "成功" : "失敗")")
         } else {
@@ -227,28 +252,27 @@ public class MGRequestConnect {
     }
     
     //發送多筆request回調
-    private static func sendMutliRequestBack(_ request: MGUrlRequest, tag: String, step: Int, customMutliRequest: HandleMutliRequest?) {
-        if let mutliRequest = customMutliRequest {
-            mutliRequest(request, request.requestTag!, step)
+    private func sendMutliRequestBack(_ request: MGUrlRequest, tag: String, step: Int) {
+        if let handler = mutliRequestHandler {
+            handler(request, request.requestTag!, step)
         } else {
             defaultResponseParserHandler?.multipleRequest(request: request, tag: tag, step: step)
         }
     }
     
     //發送解析回調
-    private static func sendParserBack(_ response: MGNetworkResponse, deserialize: MGSwiftyJsonDelegate,
-                                       customParser: HandleParser?) -> MGUrlRequest.MGResponse {
-        if let customParser = customParser {
-            return customParser(response, deserialize)
+    private func sendParserBack(_ response: MGNetworkResponse, deserialize: MGSwiftyJsonDelegate) -> MGUrlRequest.MGResponse {
+        if let handler = requestParserHandler {
+            return handler(response, deserialize)
         } else {
             return defaultResponseParserHandler?.parser(response, deserialize: deserialize) ?? MGUrlRequest.MGResponse()
         }
     }
     
     //發送下載回調
-    private static func sendDownloadBack(_ response: MGNetworkResponse, customDownload: HandleDownload?) -> MGUrlRequest.MGResponse {
-        if let customDownload = customDownload {
-            return customDownload(response)
+    private func sendDownloadBack(_ response: MGNetworkResponse) -> MGUrlRequest.MGResponse {
+        if let handler = downloadRequestHandler {
+            return handler(response)
         } else {
             return defaultResponseParserHandler?.download(response) ?? MGUrlRequest.MGResponse()
         }
