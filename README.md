@@ -14,7 +14,8 @@
 6. 小鍵盤彈出時, 若會遮擋到元件, 則整個向上位移
 7. qrcode 掃描
 
-## 版本  
+## 版本
+1.0.4 - 修正 MGContentHandler 需要帶入的反序列化 class 類型錯誤  
 1.0.3 - 修改 MGRequestConnect 的使用方式  
 1.0.2 - 因 codable 無法滿足需求, 解析 Json 工具重新引入 swiftyJson, MGRequestContent 需要反序列化的 class 改回需要繼承 MGSwiftyJsonDelegate  
 1.0.1 - 修改 MGRequestContent 需要反序列化的 class, 必需繼承 MGCodable  

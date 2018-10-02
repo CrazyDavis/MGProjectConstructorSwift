@@ -16,7 +16,7 @@ public typealias MGRequestConnectHandler = (_ request: MGUrlRequest, _ success: 
 public typealias HandleMutliRequest = (_ request: MGUrlRequest, _ tag: String, _ step: Int) -> Void
 
 //以block closure 處理 MGResponseParser的parser
-public typealias HandleParser = (_ response: MGNetworkResponse, _ deserialize: MGSwiftyJsonDelegate?) -> MGUrlRequest.MGResponse
+public typealias HandleParser = (_ response: MGNetworkResponse, _ deserialize: MGSwiftyJsonDelegate.Type) -> MGUrlRequest.MGResponse
 
 //以block closure 處理 MGResponseParser的download
 public typealias HandleDownload = (_ response: MGNetworkResponse) -> MGUrlRequest.MGResponse
@@ -261,7 +261,7 @@ public class MGRequestConnect {
     }
     
     //發送解析回調
-    private func sendParserBack(_ response: MGNetworkResponse, deserialize: MGSwiftyJsonDelegate) -> MGUrlRequest.MGResponse {
+    private func sendParserBack(_ response: MGNetworkResponse, deserialize: MGSwiftyJsonDelegate.Type) -> MGUrlRequest.MGResponse {
         if let handler = requestParserHandler {
             return handler(response, deserialize)
         } else {
@@ -292,7 +292,7 @@ public protocol MGResponseParser: class {
     func multipleRequest(request: MGUrlRequest, tag: String, step: Int)
     
     //解析response的回傳
-    func parser(_ response: MGNetworkResponse, deserialize: MGSwiftyJsonDelegate) -> MGUrlRequest.MGResponse
+    func parser(_ response: MGNetworkResponse, deserialize: MGSwiftyJsonDelegate.Type) -> MGUrlRequest.MGResponse
     
     //下載檔案
     func download(_ response: MGNetworkResponse) -> MGUrlRequest.MGResponse
@@ -301,6 +301,6 @@ public protocol MGResponseParser: class {
 //以下三個方法都不一定會用到, 為了方便給自訂parser使用, 因此這邊直接繼承變可選
 public extension MGResponseParser {
     func multipleRequest(request: MGUrlRequest, tag: String, step: Int) {}
-    func parser(_ response: MGNetworkResponse, deserialize: MGSwiftyJsonDelegate) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
+    func parser(_ response: MGNetworkResponse, deserialize: MGSwiftyJsonDelegate.Type) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
     func download(_ response: MGNetworkResponse) -> MGUrlRequest.MGResponse { return MGUrlRequest.MGResponse() }
 }

@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "MGProjectConstructorSwift"
-  s.version      = "1.0.3"
+  s.version      = "1.0.4"
   s.summary      = "A Project Base Constructor."
 
   s.description  = <<-DESC

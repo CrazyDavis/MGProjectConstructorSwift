@@ -155,7 +155,7 @@ public extension MGRequestContent {
         //進度回調
         public var progressHandler: MGProgressHandler? = nil
         
-        public var deserialize: MGSwiftyJsonDelegate? = nil
+        public var deserialize: MGSwiftyJsonDelegate.Type? = nil
         
         init() {}
         
@@ -163,7 +163,7 @@ public extension MGRequestContent {
             self.downloadInPath = downloadInPath
         }
         
-        init(deserialize: MGSwiftyJsonDelegate) {
+        init(deserialize: MGSwiftyJsonDelegate.Type) {
             self.deserialize = deserialize
         }
     }
@@ -173,7 +173,7 @@ public extension MGRequestContent {
 //設定資料
 public extension MGRequestContent {
 
-    public func setDeserialize(_ deserialize: MGSwiftyJsonDelegate) -> MGRequestContent {
+    public func setDeserialize(_ deserialize: MGSwiftyJsonDelegate.Type) -> MGRequestContent {
         self.contentHandler.deserialize = deserialize
         return self
     }
